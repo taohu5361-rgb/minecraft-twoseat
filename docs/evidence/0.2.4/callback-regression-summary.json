@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "dirtyListeners": 2,
+  "biomeListeners": 2,
+  "distanceBlocks": 320,
+  "nearDistanceBlocks": 128,
+  "phases": [
+    "changed",
+    "restored"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "cases": [
+    "P1 menu / P2 movement and look",
+    "P1 options / P2 movement",
+    "P2 menu / P1 movement and menu owner stopped",
+    "two menus and independent resume",
+    "Esc and F10 keyboard ownership",
+    "half-screen mouse ownership",
+    "P2 leave preserves P1",
+    "vanilla single-player pause restored",
+    "host end saves and closes world"
+  ]
+}

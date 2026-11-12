@@ -29,7 +29,7 @@ def distance(a,b,seat):
 
 command('testOptions')
 command('hostCloseMenu');command('guestCloseMenu');command('controllerConnect')
-for c in ('gamemode survival @a','fill 98 149 98 108 149 108 stone','fill 98 150 98 108 154 108 air',
+for c in ('gamemode survival @a','fill 88 149 88 120 149 120 stone','fill 88 150 88 120 154 120 air',
           'tp TwoSeatHost 106.5 150 100.5 0 0','tp TwoSeatGuest 100.5 150 100.5 0 0'):
     command('server',command=c)
 state();command('pressKey',key=256,delay=.6)

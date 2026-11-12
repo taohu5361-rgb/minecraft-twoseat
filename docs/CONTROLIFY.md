@@ -1,6 +1,6 @@
 # Controlify Forgified 2.1.9 集成与验收
 
-适用TwoSeat0.2.3-alpha：Minecraft1.20.1 / Forge47.3.33 / Java17。
+适用TwoSeat0.2.4-alpha：Minecraft1.20.1 / Forge47.3.33 / Java17。
 
 保留单JVM、唯一集成服务器、两名真实玩家和两套视图。Controlify和YACL作为可替换的内置Jar-in-Jar模块分发，玩家只放一个TwoSeat JAR；复用驱动、映射、绑定、死区、曲线、配置界面和虚拟光标。
 

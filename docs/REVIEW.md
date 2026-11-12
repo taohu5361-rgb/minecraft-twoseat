@@ -1,6 +1,8 @@
 # 云端源码审查入口
 
-当前版本为TwoSeat0.2.3-alpha，保留Minecraft1.20.1、Forge47.3.33、Java17单进程双人分屏，并集成Controlify Forgified2.1.9。先读[手柄集成与验收](CONTROLIFY.md)及[LGPL与源码声明](../THIRD-PARTY.md)，再检查下方基础架构。长期需求不等于已实现功能。
+0.2.4新增指定Neo Voxy版本的双视角兼容。先读[VOXY.md](VOXY.md)和[分档报告](BENCHMARK-0.2.4.md)，再审查`VoxyCallbacks`与三个可选Mixin：重点检查共享更新通知、renderer退出时的监听生命周期、在途回调及未安装Voxy时的可选性。Voxy实现/二进制受ARR限制，均未公开或嵌入。
+
+当前版本为TwoSeat0.2.4-alpha，保留Minecraft1.20.1、Forge47.3.33、Java17单进程双人分屏，并集成Controlify Forgified2.1.9。先读[手柄集成与验收](CONTROLIFY.md)及[LGPL与源码声明](../THIRD-PARTY.md)，再检查下方基础架构。长期需求不等于已实现功能。
 
 ## 建议阅读顺序
 

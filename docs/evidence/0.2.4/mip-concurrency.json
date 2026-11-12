@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "threads": 2,
+  "callsPerThread": 1000,
+  "patterns": 8,
+  "outputMatchesSerialBytes": true
+}

@@ -27,7 +27,11 @@
     "ControllerKeyOutputMixin",
     "ControllerGuideMixin",
     "ControllerSubmissionMixin",
-    "KeyboardInputMixin"
+    "KeyboardInputMixin",
+    "VoxyRendererCallbacksMixin",
+    "VoxyWorldCallbacksMixin",
+    "VoxyMapperCallbacksMixin",
+    "VoxyMipScratchMixin"
   ],
   "injectors": {
     "defaultRequire": 1

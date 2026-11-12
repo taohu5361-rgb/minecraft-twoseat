@@ -1,0 +1,17 @@
+{
+  "screenshot": "lod-5d2b943495",
+  "pixels": {
+    "host": {
+      "magenta": 0,
+      "yellow": 1097,
+      "red": 333,
+      "cyan": 391
+    },
+    "guest": {
+      "magenta": 0,
+      "yellow": 0,
+      "red": 2779,
+      "cyan": 0
+    }
+  }
+}

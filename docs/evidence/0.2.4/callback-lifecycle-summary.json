@@ -1,0 +1,95 @@
+{
+  "passed": true,
+  "solo": {
+    "host": {
+      "available": true,
+      "configuredChunks": 128.0,
+      "renderer": 1294707747,
+      "worldEngine": 195614663,
+      "dirtyListeners": 1,
+      "biomeListeners": 1,
+      "activeWorldSections": 0,
+      "geometrySections": 1701,
+      "debug": [
+        "Buf/Tex [#/Mb]: [29/8693],[7/1108]",
+        "IF/MC: 000, 0279",
+        "RSSQ/TFC: 0/0",
+        "UC/GC,#N: 33/4095,1701",
+        "SSAO: new (24 spp)",
+        "Voxy frame runtime (millis):  0.025,  0.153,  0.015,  0.196",
+        "Extra time:  0.000,  0.000,  0.000,  0.025",
+        "Extra 2 time:  0.021,  0.016,  0.013,  0.000,  0.000",
+        ""
+      ],
+      "activeImports": 0,
+      "topLevelRingRadius": 5,
+      "viewport": 1596281693,
+      "viewportWidth": 1920,
+      "viewportHeight": 1080,
+      "cameraX": -127.5,
+      "cameraY": 161.61999988555908,
+      "cameraZ": 0.5
+    }
+  },
+  "rejoined": {
+    "host": {
+      "available": true,
+      "configuredChunks": 128.0,
+      "renderer": 1294707747,
+      "worldEngine": 195614663,
+      "dirtyListeners": 2,
+      "biomeListeners": 2,
+      "activeWorldSections": 0,
+      "geometrySections": 1701,
+      "debug": [
+        "Buf/Tex [#/Mb]: [53/8796],[12/1108]",
+        "IF/MC: 000, 0279",
+        "RSSQ/TFC: 0/0",
+        "UC/GC,#N: 33/4095,1701",
+        "SSAO: new (24 spp)",
+        "Voxy frame runtime (millis):  0.025,  0.152,  0.015,  0.195",
+        "Extra time:  0.000,  0.000,  0.000,  0.025",
+        "Extra 2 time:  0.021,  0.016,  0.013,  0.000,  0.000",
+        ""
+      ],
+      "activeImports": 0,
+      "topLevelRingRadius": 5,
+      "viewport": 1596281693,
+      "viewportWidth": 960,
+      "viewportHeight": 1080,
+      "cameraX": -127.5,
+      "cameraY": 161.61999988555908,
+      "cameraZ": 0.5
+    },
+    "guest": {
+      "available": true,
+      "configuredChunks": 128.0,
+      "renderer": 712314170,
+      "worldEngine": 195614663,
+      "dirtyListeners": 2,
+      "biomeListeners": 2,
+      "activeWorldSections": 0,
+      "geometrySections": 840,
+      "debug": [
+        "Buf/Tex [#/Mb]: [53/8796],[12/1108]",
+        "IF/MC: 000, 0255",
+        "RSSQ/TFC: 0/0",
+        "UC/GC,#N: 16/4095,840",
+        "SSAO: new (24 spp)",
+        "Voxy frame runtime (millis):  0.025,  0.151,  0.015,  0.194",
+        "Extra time:  0.000,  0.000,  0.000,  0.025",
+        "Extra 2 time:  0.020,  0.016,  0.013,  0.000,  0.000",
+        ""
+      ],
+      "activeImports": 0,
+      "topLevelRingRadius": 5,
+      "viewport": 928355588,
+      "viewportWidth": 960,
+      "viewportHeight": 1080,
+      "cameraX": 128.5,
+      "cameraY": 161.61999988555908,
+      "cameraZ": 0.5
+    }
+  },
+  "serverPlayersBeforeRejoin": 1
+}

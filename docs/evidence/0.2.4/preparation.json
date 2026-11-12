@@ -1,0 +1,17 @@
+[
+  {
+    "chunks": 32,
+    "radiusBlocks": 640,
+    "finished": "[Chunky] Task finished for minecraft:overworld. Processed: 6561 chunks (100.00%), Total time: 0:00:49"
+  },
+  {
+    "chunks": 64,
+    "radiusBlocks": 1152,
+    "finished": "[Chunky] Task finished for minecraft:overworld. Processed: 21025 chunks (100.00%), Total time: 0:02:00"
+  },
+  {
+    "chunks": 128,
+    "radiusBlocks": 2176,
+    "finished": "[Chunky] Task finished for minecraft:overworld. Processed: 74529 chunks (100.00%), Total time: 0:06:12"
+  }
+]

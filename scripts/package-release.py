@@ -16,6 +16,8 @@ benchmark = root/'docs'/('BENCHMARK-' + version.removesuffix('-alpha') + '.md')
 if benchmark.is_file(): shutil.copy2(benchmark, dist/'BENCHMARK-zh-CN.md')
 menu_guide = root/'docs/MENUS.md'
 if menu_guide.is_file(): shutil.copy2(menu_guide, dist/'MENUS-zh-CN.md')
+voxy_guide = root/'docs/VOXY.md'
+if voxy_guide.is_file(): shutil.copy2(voxy_guide, dist/'VOXY-zh-CN.md')
 
 def digest(data): return hashlib.sha256(data).hexdigest()
 
@@ -50,6 +52,7 @@ with zipfile.ZipFile(jar) as archive:
         embedded.append(dict(path=module['path'],sha256=digest(data),resourceChanges=changed))
     for name in archive.namelist():
         assert not name.startswith(('net/minecraft/','net/minecraftforge/','com/example/')),name
+        assert not name.startswith('me/cortex/voxy/'), 'External ARR implementation must not be bundled'
         if name.endswith('.class'):
             assert int.from_bytes(archive.read(name)[6:8],'big') == 61, name
 

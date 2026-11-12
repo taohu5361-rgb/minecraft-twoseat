@@ -355,6 +355,7 @@ public final class SplitSession {
             leftTarget.clear(Minecraft.ON_OSX);
             a.twoseat$target(leftTarget); leftTarget.bindWrite(true);
             resizeScreen();
+            VoxyCompat.beforeView();
             mc.gameRenderer.render(partialTick, nanos, world);
             withGuest(() -> {
                 viewportWidth = rightTarget.width;
@@ -362,6 +363,7 @@ public final class SplitSession {
                 rightTarget.clear(Minecraft.ON_OSX);
                 a.twoseat$target(rightTarget); rightTarget.bindWrite(true);
                 resizeScreen();
+                VoxyCompat.beforeView();
                 mc.gameRenderer.render(partialTick, nanos, world);
             });
         } finally {

@@ -1,0 +1,161 @@
+{
+  "passed": true,
+  "results": {
+    "64": {
+      "state": {
+        "host": {
+          "available": true,
+          "configuredChunks": 64.0,
+          "renderer": 1294707747,
+          "worldEngine": 195614663,
+          "dirtyListeners": 2,
+          "biomeListeners": 2,
+          "activeWorldSections": 0,
+          "geometrySections": 821,
+          "debug": [
+            "Buf/Tex [#/Mb]: [53/8796],[12/1108]",
+            "IF/MC: 000, 0259",
+            "RSSQ/TFC: 0/0",
+            "UC/GC,#N: 17/4095,821",
+            "SSAO: new (24 spp)",
+            "Voxy frame runtime (millis):  0.021,  0.127,  0.013,  0.162",
+            "Extra time:  0.000,  0.000,  0.000,  0.021",
+            "Extra 2 time:  0.013,  0.013,  0.014,  0.000,  0.000",
+            ""
+          ],
+          "activeImports": 0,
+          "topLevelRingRadius": 3,
+          "viewport": 1596281693,
+          "viewportWidth": 960,
+          "viewportHeight": 1080,
+          "cameraX": -127.5,
+          "cameraY": 161.61999988555908,
+          "cameraZ": 0.5
+        },
+        "guest": {
+          "available": true,
+          "configuredChunks": 64.0,
+          "renderer": 964150053,
+          "worldEngine": 195614663,
+          "dirtyListeners": 2,
+          "biomeListeners": 2,
+          "activeWorldSections": 0,
+          "geometrySections": 712,
+          "debug": [
+            "Buf/Tex [#/Mb]: [53/8796],[12/1108]",
+            "IF/MC: 000, 0256",
+            "RSSQ/TFC: 0/0",
+            "UC/GC,#N: 14/4095,712",
+            "SSAO: new (24 spp)",
+            "Voxy frame runtime (millis):  0.021,  0.127,  0.013,  0.162",
+            "Extra time:  0.000,  0.000,  0.000,  0.021",
+            "Extra 2 time:  0.013,  0.013,  0.014,  0.000,  0.000",
+            ""
+          ],
+          "activeImports": 0,
+          "topLevelRingRadius": 3,
+          "viewport": 1248876063,
+          "viewportWidth": 960,
+          "viewportHeight": 1080,
+          "cameraX": 128.5,
+          "cameraY": 161.61999988555908,
+          "cameraZ": 0.5
+        }
+      },
+      "screenshot": "lod-f4e8893b5b",
+      "pixels": {
+        "host": {
+          "magenta": 1296,
+          "yellow": 0,
+          "red": 333,
+          "cyan": 391
+        },
+        "guest": {
+          "magenta": 0,
+          "yellow": 0,
+          "red": 0,
+          "cyan": 3099
+        }
+      }
+    },
+    "128": {
+      "state": {
+        "host": {
+          "available": true,
+          "configuredChunks": 128.0,
+          "renderer": 1294707747,
+          "worldEngine": 195614663,
+          "dirtyListeners": 2,
+          "biomeListeners": 2,
+          "activeWorldSections": 0,
+          "geometrySections": 931,
+          "debug": [
+            "Buf/Tex [#/Mb]: [53/8796],[12/1108]",
+            "IF/MC: 000, 0259",
+            "RSSQ/TFC: 0/0",
+            "UC/GC,#N: 18/4095,931",
+            "SSAO: new (24 spp)",
+            "Voxy frame runtime (millis):  0.021,  0.127,  0.013,  0.162",
+            "Extra time:  0.000,  0.000,  0.000,  0.021",
+            "Extra 2 time:  0.013,  0.013,  0.014,  0.000,  0.000",
+            ""
+          ],
+          "activeImports": 0,
+          "topLevelRingRadius": 5,
+          "viewport": 1596281693,
+          "viewportWidth": 960,
+          "viewportHeight": 1080,
+          "cameraX": -127.5,
+          "cameraY": 161.61999988555908,
+          "cameraZ": 0.5
+        },
+        "guest": {
+          "available": true,
+          "configuredChunks": 128.0,
+          "renderer": 964150053,
+          "worldEngine": 195614663,
+          "dirtyListeners": 2,
+          "biomeListeners": 2,
+          "activeWorldSections": 0,
+          "geometrySections": 832,
+          "debug": [
+            "Buf/Tex [#/Mb]: [53/8796],[12/1108]",
+            "IF/MC: 000, 0256",
+            "RSSQ/TFC: 0/0",
+            "UC/GC,#N: 16/4095,832",
+            "SSAO: new (24 spp)",
+            "Voxy frame runtime (millis):  0.021,  0.127,  0.013,  0.161",
+            "Extra time:  0.000,  0.000,  0.000,  0.021",
+            "Extra 2 time:  0.013,  0.013,  0.014,  0.000,  0.000",
+            ""
+          ],
+          "activeImports": 0,
+          "topLevelRingRadius": 5,
+          "viewport": 1248876063,
+          "viewportWidth": 960,
+          "viewportHeight": 1080,
+          "cameraX": 128.5,
+          "cameraY": 161.61999988555908,
+          "cameraZ": 0.5
+        }
+      },
+      "screenshot": "lod-7fab970a72",
+      "pixels": {
+        "host": {
+          "magenta": 1296,
+          "yellow": 192,
+          "red": 333,
+          "cyan": 391
+        },
+        "guest": {
+          "magenta": 0,
+          "yellow": 235,
+          "red": 0,
+          "cyan": 3134
+        }
+      }
+    }
+  },
+  "hostMarkerCenterDistanceBlocks": 1931,
+  "guestMarkerCenterDistanceBlocks": 1803
+}

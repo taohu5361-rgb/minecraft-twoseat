@@ -1,6 +1,6 @@
 # 第三方代码与重新组合说明
 
-TwoSeat 0.2.3-alpha 包含 Controlify: Forgified 2.1.9 作为内置手柄引擎，并包含它依赖的 YetAnotherConfigLib 3.6.6。安装者只需放入一个 TwoSeat JAR。Forge 模组列表仍会显示这些内置模块的原始名称与作者，以保留身份、资源空间、配置界面及许可证信息。不要另装独立 Controlify 或 YACL 副本。
+TwoSeat 0.2.4-alpha 包含 Controlify: Forgified 2.1.9 作为内置手柄引擎，并包含它依赖的 YetAnotherConfigLib 3.6.6。安装者只需放入一个 TwoSeat JAR。Forge 模组列表仍会显示这些内置模块的原始名称与作者，以保留身份、资源空间、配置界面及许可证信息。不要另装独立 Controlify 或 YACL 副本。
 
 ## LGPL 部分
 
@@ -37,3 +37,14 @@ YACL 源码归档固定为其 3.6.6 发布前最后的上游提交 `ae66e4c77c13
 Controlify带有SDL3本地库、libsdl4j、hid4java、MixinExtras；YACL带有TwelveMonkeys ImageIO和Quilt JSON解析库。除前述排除steamdeck4j外，其嵌套归档和元数据保留。额外上游许可证副本在licenses/upstream，原归档中的声明不删除。SDL3：https://github.com/libsdl-org/SDL；libsdl4j：https://github.com/isXander/libsdl4j；MixinExtras：https://github.com/LlamaLad7/MixinExtras；hid4java：https://github.com/gary-rowe/hid4java；TwelveMonkeys：https://github.com/haraldk/TwelveMonkeys；Quilt JSON：https://github.com/QuiltMC/quilt-json5。
 
 本项目没有重新开发手柄本地驱动或默认映射表，没有分发 Minecraft/Forge 游戏本体、JDK、测试存档或个人账号凭据。
+
+## Voxy 可选互操作（0.2.4）
+
+本仓库只包含TwoSeat自己编写的可选互操作代码和测试，不包含Voxy实现、Voxy JAR或其源码归档。Voxy原作及本次参考的Neo Voxy分支标明All Rights Reserved / Do not redistribute；不将其解释为MIT或LGPL，也不因源码可见而将其重新分发。
+
+- 原作：https://github.com/MCRcortex/voxy ，作者MCRcortex。
+- 本机测试参考：https://github.com/NHblock-Johnsnow/neo-voxy-multiversion ，维护者JohnSnow，commit `84ac197d92627aeeea167702757f14bf84c2f26f` 的Forge1.20.1/Java17版。
+- `VoxyCompat`、`VoxyCallbacks`、三个`Voxy*CallbacksMixin`及`VoxyMipScratchMixin`是本项目自己的MIT互操作代码：利用公开API/方法描述符同步距离、分发回调，并隔离模型处理线程的临时数组/队列，没有复制Voxy渲染实现或纹理算法。它们不要求把Voxy作为内置模块，也不会改变本包中的LGPL组件许可。
+- Embeddium为独立可选依赖，来源https://github.com/embeddedt/embeddium；没有嵌入TwoSeat。
+
+本地实验的外部依赖由用户单独取得或自行构建；公开TwoSeat交付包只含自己的兼容补丁和现有可分发的Controlify/YACL部分。源归档排除`references`、`tools`、试玩目录和世界数据库。

@@ -1,0 +1,11 @@
+{
+  "identical": true,
+  "classCount": 48,
+  "measuredSHA256": "5eda5b589ae127d698366dc87f26676aa56bb0a80b15da1585e5cc67d32b6786",
+  "finalSHA256": "42ea120dd88ae20b7045795bd8060457c673db56822054d96dc19bc343292782",
+  "nestedEntryContentsIdentical": true,
+  "nestedDifferences": {
+    "META-INF/jarjar/controlify-forgified-2.1.9.jar": [],
+    "META-INF/jarjar/yet-another-config-lib-3.6.6.jar": []
+  }
+}

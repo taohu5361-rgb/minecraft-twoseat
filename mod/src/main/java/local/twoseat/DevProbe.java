@@ -39,7 +39,7 @@ final class DevProbe {
                         net.minecraft.world.level.levelgen.presets.WorldPresets::createNormalWorldDimensions);
                 }
                 case "saveQuit" -> { session.stop(); if (mc.level != null) mc.level.disconnect(); mc.clearLevel(); mc.setScreen(new net.minecraft.client.gui.screens.TitleScreen()); }
-                case "join" -> session.start();
+                case "join" -> { if (!SplitSession.isActive()) session.start(); }
                 case "leave" -> session.stop();
                 case "controllerConnect" -> session.withGuest(ControllerProbe::connect);
                 case "controllerFirstConnect" -> session.withGuest(() -> ControllerProbe.connect(true));
@@ -88,7 +88,28 @@ final class DevProbe {
                 }
                 case "inspect" -> inspect(session, id);
                 case "benchmark" -> WeatherProbe.start(id, cmd.get("seconds").getAsInt(), session);
+                case "lodDistance" -> VoxyCompat.testDistance(cmd.get("chunks").getAsInt());
+                case "lodMipRegression" -> write(mc, id, VoxyMipProbe.run());
+                case "clientCommand" -> {
+                    if (!net.minecraftforge.client.ClientCommandHandler.runCommand(cmd.get("command").getAsString()))
+                        throw new IllegalArgumentException("Unknown client command");
+                }
+                case "lodInspect" -> {
+                    JsonObject report = new JsonObject();
+                    report.add("host", VoxyCompat.inspect());
+                    session.withGuest(() -> report.add("guest", VoxyCompat.inspect()));
+                    write(mc, id, report);
+                }
                 case "simulation" -> SimulationProbe.inspect(id);
+                case "saveWorld" -> {
+                    var server = mc.getSingleplayerServer();
+                    if (server == null || !server.getWorldData().getLevelName().startsWith("TwoSeat"))
+                        throw new IllegalStateException("Requires a TwoSeat test world");
+                    server.execute(() -> {
+                        server.saveEverything(false, true, true);
+                        TwoSeat.LOG.info("[TwoSeat probe] {} worldSaved", id);
+                    });
+                }
                 case "testSurface" -> {
                     var server = mc.getSingleplayerServer();
                     if (server != null && server.getWorldData().getLevelName().startsWith("TwoSeat")) server.execute(() -> {

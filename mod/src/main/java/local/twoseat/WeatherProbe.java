@@ -102,6 +102,10 @@ public final class WeatherProbe {
         value.addProperty("maxFps", mc.options.framerateLimit().get());
         value.addProperty("graphics", mc.options.graphicsMode().get().toString());
         value.addProperty("particles", mc.options.particles().get().toString());
+        Runtime runtime = Runtime.getRuntime();
+        value.addProperty("heapUsedBytesAtEnd", runtime.totalMemory() - runtime.freeMemory());
+        value.addProperty("heapCommittedBytesAtEnd", runtime.totalMemory());
+        value.addProperty("heapMaxBytes", runtime.maxMemory());
         var server = mc.getSingleplayerServer();
         if (server != null) value.addProperty("meanServerTickMs", server.getAverageTickTime());
         JsonArray samples = new JsonArray(); frames.forEach(samples::add); value.add("frameMs", samples);

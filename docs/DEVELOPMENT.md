@@ -1,3 +1,13 @@
+# 0.2.4-alpha Voxy实验兼容
+
+两套LevelRenderer可各自持有VoxyRenderSystem，底层WorldIdentifier相同因而共用WorldEngine。上游WorldEngine.dirtyCallback及Mapper.newBiomeCallback均为单槽，P2注册会覆盖P1；释放任一renderer时清空单槽也会破坏另一方。通过可选Pseudo Mixin拦截构造器的回调注册，VoxyCallbacks将通知分发到每个活跃renderer；releaseResources先移除自己的监听并等待在途调用结束，随后上游清空单槽时保留其他所有者的dispatcher。Map使用弱源键、独立所有者和不可变快照，调用上游setter时不持有注册表锁。
+
+VoxyCompat只用反射访问外部安装的API，按视角同步sectionRenderDistance；测试探针核实独立半屏viewport和共享engine身份。未安装Voxy时不加载其类。实际支持范围、原生图像回归和分档性能见VOXY.md与BENCHMARK-0.2.4.md。Voxy本地构建不属于可公开交付物。
+
+Voxy原先只有一个模型处理线程，MipGen的SCRATCH/QUEUE为静态可变工作区。双renderer同时烘焙透明纹理时复现fastutil队列越界；VoxyMipScratchMixin只重定向solidify内两字段的读取到各线程独享的工作区，保留上游纹理算法。VoxyMipProbe通过真实变换后的MipGen并发执行2000次，与8种串行字节参考比较，另重跑原17输入、9菜单用例。
+
+以下保留历史。
+
 # 0.2.3-alpha 独立菜单
 
 用户要求一侧Esc/手柄菜单不暂停另一方。Minecraft全局pause和pauseGame声音暂停是原缺口；本版SeatPauseScreen按玩家分开，runTick的Screen暂停判断在分屏时关闭，保持单人原版行为。输入路由明确Esc给P1、F10/Start给P2，Mouse按半屏归属；P1菜单内KeyboardInput归零，P2菜单不处理角色转向。退出请求延迟回P1上下文执行，P2只离开自己，P1保存结束双方。P2离开后旧菜单非暂停，避免刚变为单人就冻结连接断开清理。说明与回归见MENUS.md；原本共享物理鼠标的键盘后备仍由P1游戏瞄准优先。
