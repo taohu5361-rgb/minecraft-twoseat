@@ -41,6 +41,14 @@ final class DevProbe {
                 case "saveQuit" -> { session.stop(); if (mc.level != null) mc.level.disconnect(); mc.clearLevel(); mc.setScreen(new net.minecraft.client.gui.screens.TitleScreen()); }
                 case "join" -> session.start();
                 case "leave" -> session.stop();
+                case "controllerConnect" -> session.withGuest(ControllerProbe::connect);
+                case "controllerState" -> ControllerProbe.state(cmd.getAsJsonObject("state"));
+                case "controllerDisconnect" -> session.withGuest(ControllerProbe::disconnect);
+                case "controllerRestore" -> session.withGuest(ControllerProbe::restore);
+                case "hostInventory" -> {
+                    if (mc.screen == null) mc.setScreen(new net.minecraft.client.gui.screens.inventory.InventoryScreen(mc.player));
+                    else mc.player.closeContainer();
+                }
                 case "keys" -> { KEYS.clear(); for (JsonElement e : cmd.getAsJsonArray("keys")) KEYS.add(e.getAsInt()); }
                 case "hostForward" -> mc.options.keyUp.setDown(cmd.get("down").getAsBoolean());
                 case "server" -> {
@@ -64,6 +72,16 @@ final class DevProbe {
         Minecraft mc = Minecraft.getInstance();
         JsonObject report = new JsonObject();
         report.addProperty("pid", ProcessHandle.current().pid());
+        report.addProperty("windowActive", mc.isWindowActive());
+        report.addProperty("controllerProbe", ControllerProbe.connected());
+        report.addProperty("controllerActive", ControllerSeat.active());
+        report.addProperty("hostInput", mc.player == null ? "none" : mc.player.input.getClass().getSimpleName());
+        report.addProperty("hostAttackKey", mc.options.keyAttack.isDown());
+        report.addProperty("hostUseKey", mc.options.keyUse.isDown());
+        report.addProperty("hostScreen", mc.screen == null ? "none" : mc.screen.getClass().getSimpleName());
+        report.addProperty("hostMouse", System.identityHashCode(mc.mouseHandler));
+        report.addProperty("hostMouseX", mc.mouseHandler.xpos());
+        report.addProperty("hostMouseY", mc.mouseHandler.ypos());
         report.addProperty("hostUUID", mc.player == null ? "none" : mc.player.getUUID().toString());
         report.addProperty("hostPosition", mc.player == null ? "none" : mc.player.position().toString());
         report.addProperty("hostYaw", mc.player == null ? 0 : mc.player.getYRot());
@@ -75,6 +93,33 @@ final class DevProbe {
             report.addProperty("guestPitch", mc.player == null ? 0 : mc.player.getXRot());
             report.addProperty("guestScreen", mc.screen == null ? "none" : mc.screen.getClass().getSimpleName());
             report.addProperty("guestHit", String.valueOf(mc.hitResult));
+            if (mc.hitResult instanceof net.minecraft.world.phys.BlockHitResult block) {
+                report.addProperty("guestHitBlock", block.getBlockPos().toString());
+                report.addProperty("guestHitFace", block.getDirection().toString());
+                report.addProperty("guestHitState", mc.level.getBlockState(block.getBlockPos()).toString());
+            }
+            if (mc.hitResult instanceof net.minecraft.world.phys.EntityHitResult entity)
+                report.addProperty("guestHitEntity", entity.getEntity().getName().getString());
+            if (mc.screen instanceof net.minecraft.client.gui.screens.inventory.AbstractContainerScreen<?> container) {
+                var access = (dev.isxander.controlify.mixins.feature.guide.screen.AbstractContainerScreenAccessor)container;
+                JsonArray slots = new JsonArray();
+                for (var slot : container.getMenu().slots) {
+                    JsonObject entry = new JsonObject();
+                    entry.addProperty("id", slot.index);
+                    entry.addProperty("x", access.getLeftPos() + slot.x + 8);
+                    entry.addProperty("y", access.getTopPos() + slot.y + 8);
+                    entry.addProperty("item", slot.getItem().toString());
+                    slots.add(entry);
+                }
+                report.add("guestSlots", slots);
+            }
+            report.addProperty("guestInput", mc.player == null ? "none" : mc.player.input.getClass().getSimpleName());
+            report.addProperty("guestAttackKey", mc.options.keyAttack.isDown());
+            report.addProperty("guestUseKey", mc.options.keyUse.isDown());
+            report.addProperty("guestMouse", System.identityHashCode(mc.mouseHandler));
+            report.addProperty("guestMouseX", mc.mouseHandler.xpos());
+            report.addProperty("guestMouseY", mc.mouseHandler.ypos());
+            report.addProperty("guestCarried", mc.player == null ? "none" : mc.player.containerMenu.getCarried().toString());
         });
         var server = mc.getSingleplayerServer();
         if (server == null) { write(mc, id, report); return; }

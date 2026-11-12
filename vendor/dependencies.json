@@ -1,0 +1,117 @@
+{
+  "controlify": {
+    "repository": "https://github.com/EchoEllet/Controlify",
+    "tag": "2.1.9-mc1.20.1-forge",
+    "commit": "e97d6ec37cdb558afd10119c120206d41afdf50b",
+    "binaryUrl": "https://cdn.modrinth.com/data/G2K5sLls/versions/Tzzphrug/controlify-forgified-2.1.9-mc1.20.1-forge.jar",
+    "sourceUrl": "https://cdn.modrinth.com/data/G2K5sLls/versions/Tzzphrug/controlify-forgified-2.1.9-mc1.20.1-forge-sources.jar",
+    "license": "LGPL-3.0-or-later",
+    "distributionChanges": "steamdeck4j removed; four LGPL override classes from vendor/controlify-patches applied to the development base and rebuilt during packaging"
+  },
+  "yacl": {
+    "repository": "https://github.com/isXander/YetAnotherConfigLib",
+    "commit": "ae66e4c77c13e4e153da5afb9271ed59a359589e",
+    "version": "3.6.6+1.20.1-forge",
+    "binaryUrl": "https://cdn.modrinth.com/data/1eAoo2KR/versions/sCWgXDYQ/yet_another_config_lib_v3-3.6.6%2B1.20.1-forge.jar",
+    "sourceUrl": "https://codeload.github.com/isXander/YetAnotherConfigLib/zip/ae66e4c77c13e4e153da5afb9271ed59a359589e",
+    "license": "LGPL-3.0-or-later"
+  },
+  "files": [
+    {
+      "path": "mod/libs/common-image-3.12.0.jar",
+      "bytes": 79655,
+      "sha256": "62a3821c724fadfda346c1e2d83b0c506a0c4074be269a52bf4e3192c7dd92bc",
+      "role": "upstream dependency"
+    },
+    {
+      "path": "mod/libs/common-io-3.12.0.jar",
+      "bytes": 92346,
+      "sha256": "bfacfeb02acac47dbfd1fab0002eaeca65547d04249498b654320c9e0fdf6647",
+      "role": "upstream dependency"
+    },
+    {
+      "path": "mod/libs/common-lang-3.12.0.jar",
+      "bytes": 121817,
+      "sha256": "5c65e504b5b64d80683e0fa70a1dd154dd83d4de7da37f21e950f5a9c03bc66d",
+      "role": "upstream dependency"
+    },
+    {
+      "path": "mod/libs/controlify-forgified-2.1.9.jar",
+      "bytes": 6867543,
+      "sha256": "fc63f5ed2b077b0d8d607be814b7f776672501fd7c2872a43a5a02a2ffe76c37",
+      "role": "Controlify base without steamdeck4j, with LGPL source overrides for development"
+    },
+    {
+      "path": "mod/libs/gson-0.2.1.jar",
+      "bytes": 4409,
+      "sha256": "4ef02cf5a6e54cf32ced063002a7a243b6086e2886905274faf2f0a80babf2c9",
+      "role": "upstream dependency"
+    },
+    {
+      "path": "mod/libs/hid4java-0.8.0.jar",
+      "bytes": 945747,
+      "sha256": "ce812669b6d58cbaee26ff4cd1633dea4b1cee1adfe4927519d8fd67ae2fa954",
+      "role": "upstream dependency"
+    },
+    {
+      "path": "mod/libs/imageio-core-3.12.0.jar",
+      "bytes": 119909,
+      "sha256": "34c6f91bf3b217ed0115bce8283238fbd0264562aa682b4226a3960d0ede9815",
+      "role": "upstream dependency"
+    },
+    {
+      "path": "mod/libs/imageio-metadata-3.12.0.jar",
+      "bytes": 83615,
+      "sha256": "797d026b67d07e6d5eb00a1ab53a55acaab6f80a71c5ee325572093eb90c0caa",
+      "role": "upstream dependency"
+    },
+    {
+      "path": "mod/libs/imageio-webp-3.12.0.jar",
+      "bytes": 79713,
+      "sha256": "43dc447ccfe34c5c5c6f5d31190270e1f9bf65f60375d697ae2a8ff433468526",
+      "role": "upstream dependency"
+    },
+    {
+      "path": "mod/libs/json-0.2.1.jar",
+      "bytes": 23025,
+      "sha256": "5a9c7d005c7c4b07474b8e07e25f33116a923f7db19c92673f1ac47461f8a57d",
+      "role": "upstream dependency"
+    },
+    {
+      "path": "mod/libs/libsdl4j-3.2.18.release-3.2.18-79.jar",
+      "bytes": 86353,
+      "sha256": "dc4d2d7fb68fc0c23c115bd88abdc00fbdde15976a1bcba1b6bc74cb6b950e3c",
+      "role": "upstream dependency"
+    },
+    {
+      "path": "mod/libs/mixinextras-forge-0.5.0.jar",
+      "bytes": 630114,
+      "sha256": "12eed47509e3733a59135a52edd8a90807332248d292b7f1668afd42407ca01d",
+      "role": "upstream dependency"
+    },
+    {
+      "path": "mod/libs/yet-another-config-lib-3.6.6.jar",
+      "bytes": 1105891,
+      "sha256": "bd05da3d9df29b914165583f1c6dfd918a138996447ff32c0418329824027a8f",
+      "role": "upstream dependency"
+    },
+    {
+      "path": "vendor/controlify-forgified-2.1.9/release-sources.jar",
+      "bytes": 1946977,
+      "sha256": "319db4959611aba1b47b7e138d4aa83bacf28958354997decad9dfbb09e9c375",
+      "role": "upstream source archive"
+    },
+    {
+      "path": "vendor/controlify-forgified-2.1.9/upstream-source-e97d6ec.zip",
+      "bytes": 2807864,
+      "sha256": "3096943538aa312041c174735ca63911ffdde2c7ed83effda5dc277c71476b7e",
+      "role": "upstream source archive"
+    },
+    {
+      "path": "vendor/yacl-3.6.6/upstream-project-source.zip",
+      "bytes": 2509655,
+      "sha256": "c92272ab784e0b4531d1e54dd71a6412912898f02fd72e975e6cca9f07f7d0a5",
+      "role": "upstream source archive"
+    }
+  ]
+}

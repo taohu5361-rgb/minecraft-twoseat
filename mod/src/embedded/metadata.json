@@ -1,0 +1,16 @@
+{
+  "jars": [
+    {
+      "identifier": { "group": "local.twoseat.embedded", "artifact": "controlify-forgified" },
+      "version": { "range": "[2.1.9,2.2)", "artifactVersion": "2.1.9" },
+      "path": "META-INF/jarjar/controlify-forgified-2.1.9.jar",
+      "isObfuscated": true
+    },
+    {
+      "identifier": { "group": "local.twoseat.embedded", "artifact": "yet-another-config-lib" },
+      "version": { "range": "[3.6.6,3.7)", "artifactVersion": "3.6.6" },
+      "path": "META-INF/jarjar/yet-another-config-lib-3.6.6.jar",
+      "isObfuscated": true
+    }
+  ]
+}

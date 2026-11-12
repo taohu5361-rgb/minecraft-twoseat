@@ -2,6 +2,7 @@ package local.twoseat.mixin;
 
 import com.mojang.blaze3d.platform.Window;
 import local.twoseat.SplitSession;
+import local.twoseat.ControllerSeat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -9,6 +10,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Window.class)
 public abstract class WindowMixin {
+    @Inject(method = "getScreenWidth", at = @At("HEAD"), cancellable = true)
+    private void twoseat$guestLogicalWidth(CallbackInfoReturnable<Integer> ci) {
+        if (SplitSession.isGuest() && ControllerSeat.active() && SplitSession.viewportWidth > 0)
+            ci.setReturnValue(SplitSession.viewportWidth);
+    }
     @Inject(method = "getWidth", at = @At("HEAD"), cancellable = true)
     private void twoseat$width(CallbackInfoReturnable<Integer> ci) {
         if (SplitSession.viewportWidth > 0) ci.setReturnValue(SplitSession.viewportWidth);

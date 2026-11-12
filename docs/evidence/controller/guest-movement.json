@@ -1,0 +1,63 @@
+{
+  "pid": 36140,
+  "windowActive": true,
+  "controllerProbe": true,
+  "controllerActive": true,
+  "hostInput": "KeyboardInput",
+  "hostAttackKey": false,
+  "hostUseKey": false,
+  "hostScreen": "none",
+  "hostMouse": 425414479,
+  "hostMouseX": 640.0,
+  "hostMouseY": 360.0,
+  "hostUUID": "10ceda3b-9a9f-3428-98d4-700a86367ee8",
+  "hostPosition": "(106.5, 150.0, 100.5)",
+  "hostYaw": 0.0,
+  "hostPitch": 0.0,
+  "guestUUID": "ddcb043a-db56-33bb-8f82-6344b6e7dfe2",
+  "guestPosition": "(100.5, 150.0, 104.16375808910252)",
+  "guestYaw": 0.0,
+  "guestPitch": 0.0,
+  "guestScreen": "none",
+  "guestHit": "net.minecraft.world.phys.BlockHitResult@6b5e1db0",
+  "guestHitBlock": "BlockPos{x=100, y=151, z=108}",
+  "guestHitFace": "north",
+  "guestHitState": "Block{minecraft:air}",
+  "guestInput": "SecondInput",
+  "guestAttackKey": false,
+  "guestUseKey": false,
+  "guestMouse": 196417889,
+  "guestMouseX": 0.0,
+  "guestMouseY": 0.0,
+  "guestCarried": "0 air",
+  "serverPlayers": [
+    {
+      "name": "TwoSeatHost",
+      "uuid": "10ceda3b-9a9f-3428-98d4-700a86367ee8",
+      "entityId": 178,
+      "position": "(106.5, 150.0, 100.5)",
+      "health": 20.0,
+      "gameMode": "survival",
+      "selectedItem": "1 stick",
+      "entityClass": "net.minecraft.server.level.ServerPlayer",
+      "inventory": [
+        "0:1 stick",
+        "1:2 dirt"
+      ]
+    },
+    {
+      "name": "TwoSeatGuest",
+      "uuid": "ddcb043a-db56-33bb-8f82-6344b6e7dfe2",
+      "entityId": 329,
+      "position": "(100.5, 150.0, 104.16375808910252)",
+      "health": 20.0,
+      "gameMode": "survival",
+      "selectedItem": "63 dirt",
+      "entityClass": "net.minecraft.server.level.ServerPlayer",
+      "inventory": [
+        "0:63 dirt"
+      ]
+    }
+  ],
+  "serverThread": "Server thread"
+}

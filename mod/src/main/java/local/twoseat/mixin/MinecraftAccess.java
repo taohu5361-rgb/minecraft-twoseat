@@ -2,6 +2,7 @@ package local.twoseat.mixin;
 
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.MouseHandler;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.renderer.GameRenderer;
@@ -15,6 +16,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(Minecraft.class)
 public interface MinecraftAccess {
+    @Mutable @Accessor("mouseHandler") void twoseat$mouse(MouseHandler value);
     @Mutable @Accessor("levelRenderer") void twoseat$levelRenderer(LevelRenderer value);
     @Mutable @Accessor("gameRenderer") void twoseat$gameRenderer(GameRenderer value);
     @Mutable @Accessor("gui") void twoseat$gui(Gui value);

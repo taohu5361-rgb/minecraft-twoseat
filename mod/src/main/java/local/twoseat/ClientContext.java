@@ -4,6 +4,7 @@ import com.mojang.blaze3d.pipeline.RenderTarget;
 import local.twoseat.mixin.MinecraftAccess;
 import local.twoseat.mixin.ParticleAccess;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.MouseHandler;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -17,6 +18,8 @@ import net.minecraft.world.phys.HitResult;
 
 /** A lightweight world/player view; assets, managers and the Minecraft singleton stay shared. */
 final class ClientContext {
+    MouseHandler mouse;
+    final SeatKeys keys = new SeatKeys();
     ClientLevel level;
     LocalPlayer player;
     MultiPlayerGameMode gameMode;
@@ -31,6 +34,8 @@ final class ClientContext {
 
     void capture(Minecraft mc) {
         MinecraftAccess a = (MinecraftAccess)mc;
+        mouse = mc.mouseHandler;
+        keys.capture(mc);
         level = mc.level; player = mc.player; gameMode = mc.gameMode;
         levelRenderer = mc.levelRenderer; gameRenderer = mc.gameRenderer; gui = mc.gui;
         camera = a.twoseat$camera(); crosshair = mc.crosshairPickEntity; hit = mc.hitResult;
@@ -40,6 +45,8 @@ final class ClientContext {
 
     void apply(Minecraft mc) {
         MinecraftAccess a = (MinecraftAccess)mc;
+        a.twoseat$mouse(mouse);
+        keys.apply(mc);
         mc.level = level; mc.player = player; mc.gameMode = gameMode;
         ((ParticleAccess)mc.particleEngine).twoseat$level(level);
         a.twoseat$levelRenderer(levelRenderer); a.twoseat$gameRenderer(gameRenderer); a.twoseat$gui(gui);

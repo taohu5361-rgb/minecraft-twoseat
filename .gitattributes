@@ -2,5 +2,6 @@
 *.bat text eol=crlf
 *.ps1 text eol=crlf
 *.jar binary
+*.zip binary
 *.png binary
 docs/requirements/* -text

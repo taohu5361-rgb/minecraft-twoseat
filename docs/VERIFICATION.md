@@ -1,3 +1,7 @@
+# 0.2.0-alpha 验证更新
+
+2026-11-12：本版新增内置Controlify手柄与P2上下文路由。正式Forge客户端验证输入隔离、世界交互、背包取放及键盘回退，记录见[CONTROLIFY.md](CONTROLIFY.md)及docs/evidence/controller。真人实体手柄全流程尚未验收。以下为0.1.0历史证据，不将旧版的无手柄范围当成本版限制。
+
 # 第一阶段验证记录
 
 验证日期：2026-11-12，北京时间。目标为 Minecraft 1.20.1、Forge 47.3.33、Java 17；测试实例只有 Forge 与 TwoSeat，使用独立 `TwoSeat-Probe` 存档。

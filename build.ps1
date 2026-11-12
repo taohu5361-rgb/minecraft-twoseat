@@ -12,5 +12,5 @@ if (-not $GradleExecutable -and (Test-Path 'E:\AI\Phone-MCP-zh\tools\gradle\grad
 }
 if (-not $GradleExecutable) { $GradleExecutable = Join-Path $PSScriptRoot 'mod\gradlew.bat' }
 Push-Location (Join-Path $PSScriptRoot 'mod')
-try { & $GradleExecutable --no-daemon build; if ($LASTEXITCODE) { throw "Gradle failed: $LASTEXITCODE" } }
+try { & $GradleExecutable --no-daemon clean build; if ($LASTEXITCODE) { throw "Gradle failed: $LASTEXITCODE" } }
 finally { Pop-Location }

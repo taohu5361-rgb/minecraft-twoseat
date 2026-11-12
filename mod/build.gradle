@@ -124,6 +124,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 sourceSets.main.java { exclude 'com/example/**' }
 
 repositories {
+    flatDir { dirs 'libs' }
     // Put repositories for dependencies here
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
 
@@ -135,6 +136,9 @@ repositories {
 }
 
 dependencies {
+    implementation fg.deobf('local.twoseat.embedded:controlify-forgified:2.1.9')
+    implementation fg.deobf('local.twoseat.embedded:yet-another-config-lib:3.6.6')
+    implementation fileTree(dir: 'libs', include: ['*.jar'], exclude: ['controlify-forgified-*.jar', 'yet-another-config-lib-*.jar'])
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     // Specify the version of Minecraft to use.
     // Any artifact can be supplied so long as it has a "userdev" classifier artifact and is a compatible patcher artifact.
@@ -179,8 +183,91 @@ tasks.named('processResources', ProcessResources).configure {
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
+sourceSets {
+    controlifyPatch {
+        java.srcDir '../vendor/controlify-patches/src/main/java'
+        compileClasspath = sourceSets.main.compileClasspath
+    }
+}
+tasks.register('controlifyPatchJar', Jar) {
+    from sourceSets.controlifyPatch.output
+    archiveClassifier = 'controlify-patch'
+}
+reobf { controlifyPatchJar {} }
+
+// Userdev loads the flatDir dependency directly, so refresh its LGPL overrides before launch.
+tasks.register('syncControlifyDevBase') {
+    dependsOn 'reobfControlifyPatchJar'
+    doLast {
+        def base = file('libs/controlify-forgified-2.1.9.jar')
+        def next = new File(base.parentFile, base.name + '.next')
+        def original = new java.util.zip.ZipFile(base)
+        def patch = new java.util.zip.ZipFile(tasks.named('controlifyPatchJar').get().archiveFile.get().asFile)
+        def output = new java.util.zip.ZipOutputStream(new FileOutputStream(next))
+        try {
+            original.entries().each { entry ->
+                def override = entry.name.endsWith('.class') ? patch.getEntry(entry.name) : null
+                def bytes = override != null ? patch.getInputStream(override).bytes : original.getInputStream(entry).bytes
+                output.putNextEntry(new java.util.zip.ZipEntry(entry.name))
+                output.write(bytes)
+                output.closeEntry()
+            }
+        } finally { output.close(); patch.close(); original.close() }
+        java.nio.file.Files.move(next.toPath(), base.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING)
+    }
+}
+
+// Reproducible Controlify overrides and resource fixes for Forge 47.3.33.
+def prepareEmbeddedModules = tasks.register('prepareEmbeddedModules') {
+    dependsOn 'reobfControlifyPatchJar'
+    inputs.files('libs/controlify-forgified-2.1.9.jar', 'libs/yet-another-config-lib-3.6.6.jar')
+    inputs.file(tasks.named('controlifyPatchJar').flatMap { it.archiveFile })
+    outputs.dir(layout.buildDirectory.dir('embedded'))
+    doLast {
+        def destination = layout.buildDirectory.dir('embedded').get().asFile
+        destination.mkdirs()
+        ['controlify-forgified-2.1.9.jar', 'yet-another-config-lib-3.6.6.jar'].each { name ->
+            def original = new java.util.zip.ZipFile(file("libs/${name}"))
+            def patch = new java.util.zip.ZipFile(tasks.named('controlifyPatchJar').get().archiveFile.get().asFile)
+            def output = new java.util.zip.ZipOutputStream(new FileOutputStream(new File(destination, name)))
+            try {
+                original.entries().each { entry ->
+                    def bytes = original.getInputStream(entry).bytes
+                    if (name.startsWith('controlify') && patch.getEntry(entry.name) != null && entry.name.endsWith('.class'))
+                        bytes = patch.getInputStream(patch.getEntry(entry.name)).bytes
+                    if (entry.name == 'controlify.mixins.json') {
+                        def config = new groovy.json.JsonSlurper().parse(bytes)
+                        // This optional recipe-book snap mixin has an invalid remappable @Shadow
+                        // in Forgified 2.1.9. The normal container/slot snap mixins stay enabled.
+                        config.client.remove('feature.virtualmouse.snapping.AbstractRecipeBookScreenMixin')
+                        bytes = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(config)).getBytes('UTF-8')
+                    } else if (entry.name == 'yacl.mixins.json') {
+                        def config = new groovy.json.JsonSlurper().parse(bytes)
+                        config.minVersion = '0.8'
+                        bytes = groovy.json.JsonOutput.prettyPrint(groovy.json.JsonOutput.toJson(config)).getBytes('UTF-8')
+                    }
+                    output.putNextEntry(new java.util.zip.ZipEntry(entry.name))
+                    output.write(bytes)
+                    output.closeEntry()
+                }
+            } finally { output.close(); original.close(); patch.close() }
+        }
+    }
+}
+
 tasks.named('jar', Jar).configure {
+    // Exploded userdev resources must not advertise nested JARs that only exist in the release JAR.
+    from('src/embedded/metadata.json') { into 'META-INF/jarjar' }
+    doFirst {
+        def refmap = file("${buildDir}/tmp/compileJava/compileJava-refmap.json")
+        if (!refmap.isFile() || !refmap.text.contains('local/twoseat/mixin/MinecraftMixin'))
+            throw new GradleException('TwoSeat Mixin refmap is missing; run a clean build.')
+    }
+    dependsOn prepareEmbeddedModules
+    from(layout.buildDirectory.dir('embedded')) { into 'META-INF/jarjar' }
     from('../LICENSE') { into 'META-INF'; rename { 'LICENSE-TwoSeat.txt' } }
+    from('../licenses') { into 'META-INF/licenses' }
+    from('../THIRD-PARTY.md') { into 'META-INF' }
     manifest {
         attributes([
                 'Specification-Title'     : mod_id,
@@ -218,4 +305,7 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+    // A partial incremental compile after an embedded dependency changes can discard
+    // Mixin's aggregated refmap without visiting the unchanged mixin source files.
+    options.incremental = false
 }

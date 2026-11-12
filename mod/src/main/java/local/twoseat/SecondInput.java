@@ -12,6 +12,7 @@ final class SecondInput extends Input {
         return mc.isWindowActive() && GLFW.glfwGetKey(mc.getWindow().getWindow(), key) == GLFW.GLFW_PRESS;
     }
     @Override public void tick(boolean slow, float factor) {
+        if (ControllerSeat.movement(this, slow, factor)) return;
         boolean enabled = Minecraft.getInstance().screen == null;
         up = enabled && down(GLFW.GLFW_KEY_I); down = enabled && down(GLFW.GLFW_KEY_K);
         left = enabled && down(GLFW.GLFW_KEY_J); right = enabled && down(GLFW.GLFW_KEY_L);

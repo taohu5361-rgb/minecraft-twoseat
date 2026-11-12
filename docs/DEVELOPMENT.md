@@ -1,3 +1,7 @@
+# 0.2.0-alpha 最新交接
+
+2026-11-12：已集成Controlify Forgified2.1.9与YACL，保持单JVM/双玩家。当前实现、构建资源修补、17项正式客户端回归及边界见[CONTROLIFY.md](CONTROLIFY.md)，LGPL对应源码和替换办法见[第三方声明](../THIRD-PARTY.md)。交付与最新状态以README及项目任务日志为准。下方保留0.1.0阶段原始历史。
+
 # 最新开发交接
 
 更新：2026-11-12 12:17（北京时间）。**第一阶段最小闭环已实现并验证，JAR、源码 ZIP 与运行说明均已生成校验；后续记录以 README、docs/VERIFICATION.md 和项目任务日志为准。**
