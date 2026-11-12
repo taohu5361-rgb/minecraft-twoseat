@@ -1,3 +1,11 @@
+# 0.2.2-alpha 天气与模拟修复
+
+用户反馈P1拉远后P2雨线反复上下跳动，要求8区块加载/8区块模拟及帧率测试，并追加验证生物。根因已通过真实客户端复现：P2漏掉LevelRenderer.tick，10秒内P1渲染时钟前进200刻/P2为0，P2动画时间回退200次。补齐P2渲染器刻、ClientLevel.animateTick和ParticleEngine.tick；ParticleState按上下文分开活动粒子/发射器/待加入队列/组计数，共享生成器、纹理图集与资源。音频继续P1监听。
+
+WeatherProbe/MinecraftMixin以实际全局帧间隔记录FPS与帧时间，在两套真实视图中观测天气及固定UUID生物的动画时间和插值。普通安装不启用probe。SimulationProbe从服务器线程检查两玩家区块范围、实体刻数和熔炉状态；探针区分实体tick资格与方块tick就绪，不能把ServerChunkCache.isPositionTicking误标为实体资格。测试脚本tests/controller/weather_regression.py、simulation_regression.py、frame_benchmark.py。Windows命令文件更新增加短暂占用重试；静止判定允许小于0.001度的浮点尾差。
+
+最新结果和测帧条件见BENCHMARK-0.2.2.md；原17项输入回归及个人进度不因本次模拟修复而取消。以下保留历史。
+
 # 0.2.1-alpha 最新交接
 
 首次设备信息提交页与自动设置向导已停用；标准或已映射接口分配给P2，零输入原始接口不再覆盖XInput。每个客户端上下文独立ToastComponent，修复一人成就提示出现在两屏的问题。原版个人数据继续由真实ServerPlayer按UUID持久化；本次已实测整个JVM重启后的背包/装备、末影箱、经验、位置/方向、重生点、配方、成就和统计独立恢复。精选证据见evidence/0.2.1，测试脚本见tests/controller。0.2.0实体试玩暴露了原自动测试接入时清理向导的漏测，新增首次连接回归不再清理。人工实体手柄全流程仍需用户试玩确认。

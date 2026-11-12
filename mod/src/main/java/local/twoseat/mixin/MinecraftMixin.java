@@ -10,6 +10,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Minecraft.class)
 public abstract class MinecraftMixin {
+    @Inject(method = "runTick", at = @At("HEAD"))
+    private void twoseat$frameSample(boolean renderLevel, CallbackInfo ci) {
+        local.twoseat.WeatherProbe.frame();
+    }
     @Inject(method = "updateScreenAndTick", at = @At("HEAD"), cancellable = true)
     private void twoseat$noNestedFrame(Screen screen, CallbackInfo ci) {
         if (SplitSession.isGuest()) {

@@ -21,6 +21,7 @@ import net.minecraft.world.phys.HitResult;
 final class ClientContext {
     MouseHandler mouse;
     final SeatKeys keys = new SeatKeys();
+    final ParticleState particles = new ParticleState();
     ClientLevel level;
     LocalPlayer player;
     MultiPlayerGameMode gameMode;
@@ -38,6 +39,7 @@ final class ClientContext {
         MinecraftAccess a = (MinecraftAccess)mc;
         mouse = mc.mouseHandler;
         keys.capture(mc);
+        particles.capture(mc.particleEngine);
         level = mc.level; player = mc.player; gameMode = mc.gameMode;
         levelRenderer = mc.levelRenderer; gameRenderer = mc.gameRenderer; gui = mc.gui;
         toasts = mc.getToasts();
@@ -52,6 +54,7 @@ final class ClientContext {
         keys.apply(mc);
         mc.level = level; mc.player = player; mc.gameMode = gameMode;
         ((ParticleAccess)mc.particleEngine).twoseat$level(level);
+        particles.apply(mc.particleEngine);
         a.twoseat$levelRenderer(levelRenderer); a.twoseat$gameRenderer(gameRenderer); a.twoseat$gui(gui);
         a.twoseat$toasts(toasts);
         a.twoseat$camera(camera); mc.crosshairPickEntity = crosshair; mc.hitResult = hit;

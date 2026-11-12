@@ -12,6 +12,8 @@ shutil.copy2(root/'mod/build/libs'/jar.name, jar)
 shutil.copy2(root/'README.md', dist/'README-zh-CN.md')
 shutil.copy2(root/'docs/CONTROLIFY.md', dist/'VERIFICATION-zh-CN.md')
 shutil.copy2(root/'THIRD-PARTY.md', dist/'THIRD-PARTY.md')
+benchmark = root/'docs'/('BENCHMARK-' + version.removesuffix('-alpha') + '.md')
+if benchmark.is_file(): shutil.copy2(benchmark, dist/'BENCHMARK-zh-CN.md')
 
 def digest(data): return hashlib.sha256(data).hexdigest()
 

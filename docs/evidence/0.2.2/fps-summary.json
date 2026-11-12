@@ -1,0 +1,50 @@
+[
+  {
+    "scenario": "single_clear",
+    "fps": 1043.6134581764613,
+    "onePercentLowFps": 419.1242945130357,
+    "p99FrameMs": 2.316,
+    "serverTickMsRange": [
+      2.799365,
+      3.0148897
+    ],
+    "frames": 31305,
+    "seconds": 29.9967385
+  },
+  {
+    "scenario": "split_near_clear",
+    "fps": 655.1596796863918,
+    "onePercentLowFps": 230.84158396698567,
+    "p99FrameMs": 4.1901,
+    "serverTickMsRange": [
+      3.7243593,
+      3.8368134
+    ],
+    "frames": 19652,
+    "seconds": 29.9957409
+  },
+  {
+    "scenario": "split_far_clear",
+    "fps": 643.1633788246538,
+    "onePercentLowFps": 250.7259360261732,
+    "p99FrameMs": 3.8632,
+    "serverTickMsRange": [
+      5.9698777,
+      6.2228193
+    ],
+    "frames": 19291,
+    "seconds": 29.993934099999997
+  },
+  {
+    "scenario": "split_far_rain",
+    "fps": 512.3136145844508,
+    "onePercentLowFps": 221.82942728683452,
+    "p99FrameMs": 4.3566,
+    "serverTickMsRange": [
+      6.3980074,
+      6.68609
+    ],
+    "frames": 15367,
+    "seconds": 29.9952989
+  }
+]

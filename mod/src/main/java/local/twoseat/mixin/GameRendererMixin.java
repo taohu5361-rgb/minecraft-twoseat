@@ -12,5 +12,6 @@ public abstract class GameRendererMixin {
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     private void twoseat$render(float partialTick, long nanos, boolean renderWorld, CallbackInfo ci) {
         if (SplitSession.render(partialTick, nanos, renderWorld)) ci.cancel();
+        else local.twoseat.WeatherProbe.view(SplitSession.isGuest(), partialTick);
     }
 }

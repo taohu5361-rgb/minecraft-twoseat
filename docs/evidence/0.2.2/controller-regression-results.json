@@ -1,0 +1,112 @@
+[
+  {
+    "test": "controller moves only guest",
+    "passed": true,
+    "details": {
+      "guest": 3.8472382930363977,
+      "host": 0.0
+    }
+  },
+  {
+    "test": "keyboard moves only host",
+    "passed": true,
+    "details": {
+      "host": 3.018272344891116,
+      "guest": 0.0
+    }
+  },
+  {
+    "test": "controller turns only guest",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "test": "controller attack key isolated",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "test": "controller use key isolated",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "test": "controller opens only guest inventory",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "test": "independent mouse handlers",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "test": "controller cursor does not move host cursor",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "test": "host moves while guest inventory stays open",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "test": "controller closes guest inventory",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "test": "controller places a server-confirmed block",
+    "passed": true,
+    "details": {
+      "selectedItem": "63 dirt",
+      "hit": "Block{minecraft:dirt}",
+      "block": "MutableBlockPos{x=100, y=150, z=102}"
+    }
+  },
+  {
+    "test": "controller mines the placed block",
+    "passed": true,
+    "details": "Block{minecraft:stone}"
+  },
+  {
+    "test": "controller attacks the other real player",
+    "passed": true,
+    "details": {
+      "hostBefore": 17.06,
+      "hostAfter": 16.119999
+    }
+  },
+  {
+    "test": "controller picks up guest inventory stack",
+    "passed": true,
+    "details": {
+      "carried": "63 dirt",
+      "cursor": [
+        336.0,
+        674.0
+      ],
+      "slot": {
+        "id": 36,
+        "x": 168,
+        "y": 337,
+        "item": "63 dirt"
+      }
+    }
+  },
+  {
+    "test": "controller places stack back in guest inventory",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "test": "both players can have separate inventory screens",
+    "passed": true,
+    "details": ""
+  },
+  {
+    "test": "disconnect restores P2 keyboard movement",
+    "passed": true,
+    "details": ""
+  }
+]

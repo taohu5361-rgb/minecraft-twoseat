@@ -1,6 +1,6 @@
 # Controlify Forgified 2.1.9 集成与验收
 
-适用TwoSeat0.2.1-alpha：Minecraft1.20.1 / Forge47.3.33 / Java17。
+适用TwoSeat0.2.2-alpha：Minecraft1.20.1 / Forge47.3.33 / Java17。
 
 保留单JVM、唯一集成服务器、两名真实玩家和两套视图。Controlify和YACL作为可替换的内置Jar-in-Jar模块分发，玩家只放一个TwoSeat JAR；复用驱动、映射、绑定、死区、曲线、配置界面和虚拟光标。
 
@@ -38,3 +38,8 @@ ControllerProbe仅在-Dtwoseat.probe=true时可用。它通过原始InputCompone
 APEX5实际枚举出标准XInput（10轴、21按钮）和零输入原始接口；旧版会选择后者。修复根据Controlify的标准手柄/映射能力选择接口，不按厂商名写特例。自动输入测试仍不代替实体手柄的人工作用验证。
 
 新增 `player_progress.py` 对两个真实玩家分别设置经验、物品、装备、末影箱、重生点、配方和成就；检查客户端管理器和两个方向的成就提示隔离，再在整个JVM退出重启后比较各自个人数据及UUID文件。运行方法为：设好TWOSEAT_TEST_GAME和TWOSEAT_TEST_OUTPUT，执行seed；正常保存退出并重启同一测试世界、加入P2后执行verify。此测试只用于可丢弃的TwoSeat测试世界。
+
+
+## 0.2.2 天气、生物与模拟
+
+本版补齐P2客户端动画/粒子更新，与Controlify输入路由并行；不更改手柄驱动或映射。天气、生物、粒子隔离、8/8服务端模拟及帧率证据见[BENCHMARK-0.2.2.md](BENCHMARK-0.2.2.md)。

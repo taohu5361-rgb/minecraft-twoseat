@@ -1,0 +1,277 @@
+{
+  "viewDistance": 8,
+  "simulationDistance": 8,
+  "meanServerTickMs": 6.8230968,
+  "players": [
+    {
+      "name": "TwoSeatHost",
+      "chunks": [
+        {
+          "offsetChunks": 0,
+          "entityTicking": true,
+          "blockTickingReady": true,
+          "loaded": true,
+          "blockEntity": {
+            "CookTime": 75,
+            "BurnTime": 1326,
+            "Items": [
+              {
+                "Slot": 0,
+                "id": "minecraft:iron_ore",
+                "Count": 63
+              },
+              {
+                "Slot": 1,
+                "id": "minecraft:coal",
+                "Count": 63
+              },
+              {
+                "Slot": 2,
+                "id": "minecraft:iron_ingot",
+                "Count": 1
+              }
+            ],
+            "CookTimeTotal": 200,
+            "RecipesUsed": {
+              "minecraft:iron_ingot_from_smelting_iron_ore": 1
+            }
+          }
+        },
+        {
+          "offsetChunks": 6,
+          "entityTicking": true,
+          "blockTickingReady": true,
+          "loaded": true,
+          "blockEntity": {
+            "CookTime": 66,
+            "BurnTime": 1335,
+            "Items": [
+              {
+                "Slot": 0,
+                "id": "minecraft:iron_ore",
+                "Count": 63
+              },
+              {
+                "Slot": 1,
+                "id": "minecraft:coal",
+                "Count": 63
+              },
+              {
+                "Slot": 2,
+                "id": "minecraft:iron_ingot",
+                "Count": 1
+              }
+            ],
+            "CookTimeTotal": 200,
+            "RecipesUsed": {
+              "minecraft:iron_ingot_from_smelting_iron_ore": 1
+            }
+          }
+        },
+        {
+          "offsetChunks": 7,
+          "entityTicking": true,
+          "blockTickingReady": true,
+          "loaded": true,
+          "blockEntity": {
+            "CookTime": 58,
+            "BurnTime": 1343,
+            "Items": [
+              {
+                "Slot": 0,
+                "id": "minecraft:iron_ore",
+                "Count": 63
+              },
+              {
+                "Slot": 1,
+                "id": "minecraft:coal",
+                "Count": 63
+              },
+              {
+                "Slot": 2,
+                "id": "minecraft:iron_ingot",
+                "Count": 1
+              }
+            ],
+            "CookTimeTotal": 200,
+            "RecipesUsed": {
+              "minecraft:iron_ingot_from_smelting_iron_ore": 1
+            }
+          }
+        },
+        {
+          "offsetChunks": 8,
+          "entityTicking": true,
+          "blockTickingReady": true,
+          "loaded": true
+        },
+        {
+          "offsetChunks": 9,
+          "entityTicking": true,
+          "blockTickingReady": true,
+          "loaded": true
+        }
+      ]
+    },
+    {
+      "name": "TwoSeatGuest",
+      "chunks": [
+        {
+          "offsetChunks": 0,
+          "entityTicking": true,
+          "blockTickingReady": true,
+          "loaded": true,
+          "blockEntity": {
+            "CookTime": 50,
+            "BurnTime": 1351,
+            "Items": [
+              {
+                "Slot": 0,
+                "id": "minecraft:iron_ore",
+                "Count": 63
+              },
+              {
+                "Slot": 1,
+                "id": "minecraft:coal",
+                "Count": 63
+              },
+              {
+                "Slot": 2,
+                "id": "minecraft:iron_ingot",
+                "Count": 1
+              }
+            ],
+            "CookTimeTotal": 200,
+            "RecipesUsed": {
+              "minecraft:iron_ingot_from_smelting_iron_ore": 1
+            }
+          }
+        },
+        {
+          "offsetChunks": 6,
+          "entityTicking": true,
+          "blockTickingReady": true,
+          "loaded": true,
+          "blockEntity": {
+            "CookTime": 41,
+            "BurnTime": 1360,
+            "Items": [
+              {
+                "Slot": 0,
+                "id": "minecraft:iron_ore",
+                "Count": 63
+              },
+              {
+                "Slot": 1,
+                "id": "minecraft:coal",
+                "Count": 63
+              },
+              {
+                "Slot": 2,
+                "id": "minecraft:iron_ingot",
+                "Count": 1
+              }
+            ],
+            "CookTimeTotal": 200,
+            "RecipesUsed": {
+              "minecraft:iron_ingot_from_smelting_iron_ore": 1
+            }
+          }
+        },
+        {
+          "offsetChunks": 7,
+          "entityTicking": true,
+          "blockTickingReady": true,
+          "loaded": true,
+          "blockEntity": {
+            "CookTime": 33,
+            "BurnTime": 1368,
+            "Items": [
+              {
+                "Slot": 0,
+                "id": "minecraft:iron_ore",
+                "Count": 63
+              },
+              {
+                "Slot": 1,
+                "id": "minecraft:coal",
+                "Count": 63
+              },
+              {
+                "Slot": 2,
+                "id": "minecraft:iron_ingot",
+                "Count": 1
+              }
+            ],
+            "CookTimeTotal": 200,
+            "RecipesUsed": {
+              "minecraft:iron_ingot_from_smelting_iron_ore": 1
+            }
+          }
+        },
+        {
+          "offsetChunks": 8,
+          "entityTicking": true,
+          "blockTickingReady": true,
+          "loaded": true
+        },
+        {
+          "offsetChunks": 9,
+          "entityTicking": false,
+          "blockTickingReady": true,
+          "loaded": true
+        }
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "uuid": "00000000-0000-0000-0000-000000000111",
+      "tags": "[TwoSeatSimHost, TwoSeatSimMob]",
+      "ticks": 689,
+      "entityTicking": true
+    },
+    {
+      "uuid": "00000000-0000-0000-0000-000000000222",
+      "tags": "[TwoSeatSimGuest, TwoSeatSimMob]",
+      "ticks": 684,
+      "entityTicking": true
+    },
+    {
+      "uuid": "d11b6dca-0f6b-4ccc-8433-01d948b5b899",
+      "tags": "[TwoSeatSimTick, TwoSeatSim-host-0]",
+      "ticks": 270,
+      "entityTicking": true
+    },
+    {
+      "uuid": "c13492d5-dae6-43ca-8575-04c81e887edc",
+      "tags": "[TwoSeatSim-host-6, TwoSeatSimTick]",
+      "ticks": 262,
+      "entityTicking": true
+    },
+    {
+      "uuid": "c3b972a6-3844-42ef-af66-2fbd6012d176",
+      "tags": "[TwoSeatSim-host-7, TwoSeatSimTick]",
+      "ticks": 254,
+      "entityTicking": true
+    },
+    {
+      "uuid": "61afd7d0-af28-416a-9b01-d19b6ff4c02e",
+      "tags": "[TwoSeatSim-guest-0, TwoSeatSimTick]",
+      "ticks": 245,
+      "entityTicking": true
+    },
+    {
+      "uuid": "2c26bc4e-5aee-44c7-89ec-156a15630cbd",
+      "tags": "[TwoSeatSimTick, TwoSeatSim-guest-6]",
+      "ticks": 237,
+      "entityTicking": true
+    },
+    {
+      "uuid": "f15c999b-2590-45d8-bae0-2d9779405b7f",
+      "tags": "[TwoSeatSimTick, TwoSeatSim-guest-7]",
+      "ticks": 229,
+      "entityTicking": true
+    }
+  ]
+}

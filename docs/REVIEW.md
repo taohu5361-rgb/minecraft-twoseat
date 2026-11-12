@@ -1,6 +1,6 @@
 # 云端源码审查入口
 
-当前版本为TwoSeat0.2.1-alpha，保留Minecraft1.20.1、Forge47.3.33、Java17单进程双人分屏，并集成Controlify Forgified2.1.9。先读[手柄集成与验收](CONTROLIFY.md)及[LGPL与源码声明](../THIRD-PARTY.md)，再检查下方基础架构。长期需求不等于已实现功能。
+当前版本为TwoSeat0.2.2-alpha，保留Minecraft1.20.1、Forge47.3.33、Java17单进程双人分屏，并集成Controlify Forgified2.1.9。先读[手柄集成与验收](CONTROLIFY.md)及[LGPL与源码声明](../THIRD-PARTY.md)，再检查下方基础架构。长期需求不等于已实现功能。
 
 ## 建议阅读顺序
 
@@ -17,6 +17,8 @@
 | `TwoSeat.java` | Forge 模组入口，仅在客户端注册会话事件 |
 | `SplitSession.java` | 本地玩家连接、第二玩家数据包队列、上下文切换、双视图绘制、输入与会话生命周期 |
 | `ClientContext.java` | 保存和恢复当前玩家、世界视图、相机、GUI 与交互状态 |
+| `ParticleState.java` | 每视图活动粒子状态，提供器与纹理仍共用 |
+| `WeatherProbe.java` / `SimulationProbe.java` | 默认关闭的天气、生物、服务端模拟与帧时间证据采集 |
 | `SecondInput.java` | 玩家二基础键盘输入 |
 | `mixin/` | 数据包接收、渲染、窗口尺寸、键盘鼠标与原版私有成员的必要挂钩 |
 | `DevProbe.java` | 默认关闭的本地测试驱动；只有显式设置 `twoseat.probe=true` 时启用 |

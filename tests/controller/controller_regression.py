@@ -10,7 +10,12 @@ def command(op, delay=.25, **kwargs):
     target = game / 'twoseat-command.json'
     temp = target.with_suffix('.next')
     temp.write_text(json.dumps(dict(id=identifier, op=op, **kwargs)), encoding='utf-8')
-    temp.replace(target)
+    for attempt in range(40):
+        try:
+            temp.replace(target);break
+        except PermissionError:
+            if attempt==39:raise
+            time.sleep(.05)
     time.sleep(delay)
     return identifier
 
@@ -19,7 +24,7 @@ def inspect(label):
     path = game / 'twoseat-evidence' / (identifier + '.json')
     for _ in range(100):
         if path.is_file():
-            value = json.loads(path.read_text())
+            value = json.loads(path.read_text(encoding='utf-8'))
             (root / ('controller-' + label + '.json')).write_text(json.dumps(value, indent=2), encoding='utf-8')
             return value
         time.sleep(.1)

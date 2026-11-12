@@ -4,6 +4,6 @@
   "package": "local.twoseat.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "twoseat.refmap.json",
-  "client": ["MinecraftAccess", "MinecraftMixin", "GameRendererAccess", "GameRendererMixin", "ParticleAccess", "ConnectionMixin", "WindowMixin", "KeyboardMixin", "MouseMixin", "MouseAccess", "KeyMappingAccess", "ControlifySeatMixin", "ControlifyAccess", "ControllerMovementMixin", "ControllerInGameMixin", "VirtualMouseSeatMixin", "ControllerKeyOutputMixin", "ControllerGuideMixin", "ControllerSubmissionMixin"],
+  "client": ["LevelRendererAccess", "MinecraftAccess", "MinecraftMixin", "GameRendererAccess", "GameRendererMixin", "ParticleAccess", "ParticleDataAccess", "ConnectionMixin", "WindowMixin", "KeyboardMixin", "MouseMixin", "MouseAccess", "KeyMappingAccess", "ControlifySeatMixin", "ControlifyAccess", "ControllerMovementMixin", "ControllerInGameMixin", "VirtualMouseSeatMixin", "ControllerKeyOutputMixin", "ControllerGuideMixin", "ControllerSubmissionMixin"],
   "injectors": { "defaultRequire": 1 }
 }

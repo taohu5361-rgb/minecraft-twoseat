@@ -254,10 +254,15 @@ public final class SplitSession {
             if (a.twoseat$useDelay() > 0) a.twoseat$useDelay(a.twoseat$useDelay() - 1);
             if (a.twoseat$missTime() > 0) a.twoseat$missTime(a.twoseat$missTime() - 1);
             mc.gameMode.tick();
+            // Vanilla advances this before world/game-renderer ticks. Weather UVs and
+            // block-breaking overlays use this clock, not GameRenderer's own clock.
+            mc.levelRenderer.tick();
             mc.level.tickEntities();
             mc.level.tick(() -> true);
             mc.gameRenderer.tick();
             mc.gui.tick(false);
+            mc.level.animateTick(mc.player.getBlockX(), mc.player.getBlockY(), mc.player.getBlockZ());
+            mc.particleEngine.tick();
             mc.gameRenderer.pick(1);
             boolean attack = mc.screen == null && (ControllerSeat.active() ? ControllerSeat.attack() : SecondInput.down(GLFW.GLFW_KEY_U));
             if (mc.screen == null && (attackRequested || (attack && !attackHeld))) a.twoseat$attack();

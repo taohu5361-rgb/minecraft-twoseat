@@ -10,7 +10,15 @@ try:
     server('tp TwoSeatHost 106.5 150 100.5 0 0')
     server('tp TwoSeatGuest 100.5 150 100.5 0 45')
     server('item replace entity TwoSeatGuest hotbar.0 with minecraft:dirt 64')
-    before = inspect('before-controller-place')
+    # Prior play may leave a different slot selected. Use the real shoulder binding
+    # to select the prepared stack, instead of assuming slot zero is already active.
+    for _ in range(10):
+        before = inspect('before-controller-place')
+        if player(before,'TwoSeatGuest')['playerData']['SelectedItemSlot']==0:break
+        state(buttons=['right_shoulder'],delay=.12)
+        state(delay=.12)
+    assert player(before,'TwoSeatGuest')['selectedItem']=='64 dirt', 'Prepared block stack is not selected'
+
     state({'left_trigger':1}, delay=.12)
     state(delay=.5)
     placed = inspect('after-controller-place')

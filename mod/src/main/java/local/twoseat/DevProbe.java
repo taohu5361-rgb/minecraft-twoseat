@@ -61,6 +61,22 @@ final class DevProbe {
                     }
                 }
                 case "inspect" -> inspect(session, id);
+                case "benchmark" -> WeatherProbe.start(id, cmd.get("seconds").getAsInt(), session);
+                case "simulation" -> SimulationProbe.inspect(id);
+                case "testSurface" -> {
+                    var server = mc.getSingleplayerServer();
+                    if (server != null && server.getWorldData().getLevelName().startsWith("TwoSeat")) server.execute(() -> {
+                        for (var p : server.getPlayerList().getPlayers()) {
+                            int y = p.serverLevel().getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, p.getBlockX(), p.getBlockZ());
+                            p.teleportTo(p.serverLevel(), p.getX(), y+1, p.getZ(), p.getYRot(), 0);
+                        }
+                    });
+                }
+                case "testOptions" -> {
+                    mc.options.renderDistance().set(8); mc.options.simulationDistance().set(8);
+                    mc.options.enableVsync().set(false); mc.options.framerateLimit().set(260);
+                    mc.options.pauseOnLostFocus = false;
+                }
                 case "clearToasts" -> { mc.getToasts().clear(); session.withGuest(() -> mc.getToasts().clear()); }
                 case "screenshot" -> screenshot = id;
                 case "quit" -> mc.stop();
@@ -179,6 +195,26 @@ final class DevProbe {
         });
     }
     private static void clientProgress(Minecraft mc, JsonObject report, String seat) {
+        report.addProperty(seat + "RendererTicks", ((local.twoseat.mixin.LevelRendererAccess)mc.levelRenderer).twoseat$ticks());
+        report.addProperty(seat + "ParticleCount", mc.particleEngine.countParticles());
+        report.addProperty(seat + "ParticleState", System.identityHashCode(((local.twoseat.mixin.ParticleAccess)mc.particleEngine).twoseat$particles()));
+        JsonObject particleTypes = new JsonObject();
+        int mismatches = 0;
+        var access = (local.twoseat.mixin.ParticleAccess)mc.particleEngine;
+        java.util.List<net.minecraft.client.particle.Particle> particles = new java.util.ArrayList<>(access.twoseat$pending());
+        access.twoseat$particles().values().forEach(particles::addAll);
+        for (var particle : particles) {
+            var data = (local.twoseat.mixin.ParticleDataAccess)particle;
+            if (data.twoseat$level() != mc.level) mismatches++;
+            String type = particle.getClass().getSimpleName();
+            JsonObject group = particleTypes.has(type) ? particleTypes.getAsJsonObject(type) : new JsonObject();
+            group.addProperty("count", group.has("count") ? group.get("count").getAsInt()+1 : 1);
+            group.addProperty("maxAge", Math.max(group.has("maxAge") ? group.get("maxAge").getAsInt() : 0, data.twoseat$age()));
+            particleTypes.add(type, group);
+        }
+        report.add(seat + "ParticleTypes", particleTypes);
+        report.addProperty(seat + "ParticleWorldMismatches", mismatches);
+        if (mc.level != null) report.addProperty(seat + "ServerSimulationDistance", mc.level.getServerSimulationDistance());
         report.addProperty(seat + "Toasts", System.identityHashCode(mc.getToasts()));
         report.addProperty(seat + "AdvancementToast", mc.getToasts().getToast(
             net.minecraft.client.gui.components.toasts.AdvancementToast.class,
@@ -193,7 +229,7 @@ final class DevProbe {
             if (mc.player.getRecipeBook().contains(recipe)) recipes.add(recipe.getId().toString());
         report.add(seat + "KnownRecipes", recipes);
     }
-    private static void write(Minecraft mc, String id, JsonObject value) {
+    static void write(Minecraft mc, String id, JsonObject value) {
         try {
             Path folder = mc.gameDirectory.toPath().resolve("twoseat-evidence");
             Files.createDirectories(folder);
