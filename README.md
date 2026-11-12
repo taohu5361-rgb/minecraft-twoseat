@@ -53,4 +53,4 @@
 
 ## 云端审查
 
-仓库按要求设为私有。云端 Chat 通过你授权的 GitHub 连接读取后，可从 [源码审查入口](docs/REVIEW.md) 开始。精选运行证据放在 `docs/evidence/`，截图放在 `docs/screenshots/`。可测试 JAR、源码 ZIP 和简短说明位于仓库的 Releases；私有仓库的 Release 同样需要授权访问。
+仓库已按用户最新要求公开。云端 Chat 可从 [源码审查入口](docs/REVIEW.md) 开始；若使用的聊天具备网页或 GitHub 读取工具，可直接提供仓库链接。精选运行证据放在 `docs/evidence/`，截图放在 `docs/screenshots/`。可测试 JAR、源码 ZIP 和简短说明位于仓库的 Releases，均可公开访问。
