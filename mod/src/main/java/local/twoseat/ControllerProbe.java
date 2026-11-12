@@ -24,6 +24,9 @@ public final class ControllerProbe {
     private record Id(String value) implements UniqueControllerID {}
 
     static void connect() {
+        connect(false);
+    }
+    static void connect(boolean firstUse) {
         if (!DevProbe.ENABLED) throw new IllegalStateException("Probe disabled");
         if (Controlify.instance().getControllerManager().isEmpty()) throw new IllegalStateException("Controlify not initialized");
         disconnected = false;
@@ -36,10 +39,17 @@ public final class ControllerProbe {
             }
         }, CUtil.LOGGER.createSubLogger("TwoSeatProbe"));
         state = new JsonObject();
-        ControlifyAccess access = (ControlifyAccess)Controlify.instance();
-        access.twoseat$wizards().clear();
-        access.twoseat$wizard(null);
-        net.minecraft.client.Minecraft.getInstance().setScreen(null);
+        if (firstUse) {
+            // Follow the same event as a real newly connected controller. Do not erase setup UI:
+            // doing so hid the first-use deadlock from the original regression suite.
+            dev.isxander.controlify.api.event.ControlifyEvents.CONTROLLER_CONNECTED.invoke(
+                new dev.isxander.controlify.api.event.ControlifyEvents.ControllerConnected(device, true, true));
+        } else {
+            ControlifyAccess access = (ControlifyAccess)Controlify.instance();
+            access.twoseat$wizards().clear();
+            access.twoseat$wizard(null);
+            net.minecraft.client.Minecraft.getInstance().setScreen(null);
+        }
         Controlify.instance().setCurrentController(device, false);
     }
     static void state(JsonObject value) {

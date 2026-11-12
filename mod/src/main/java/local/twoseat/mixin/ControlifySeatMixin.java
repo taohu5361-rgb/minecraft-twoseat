@@ -11,11 +11,18 @@ import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = Controlify.class, remap = false)
 public abstract class ControlifySeatMixin {
+    @Redirect(method = "onControllerAdded", at = @At(value = "INVOKE", target = "Ljava/util/Queue;add(Ljava/lang/Object;)Z"))
+    private boolean twoseat$deferAutomaticSetup(java.util.Queue<?> queue, Object wizard) {
+        // Device discovery must not put P2 behind controller-only setup UI before inputs work.
+        // Keep actual calibration state untouched; calibration/mapping stay available in settings.
+        return false;
+    }
     @Inject(method = "tickController", at = @At("HEAD"))
     private void twoseat$testDevice(ControllerEntity controller, boolean outOfFocus, CallbackInfo ci) {
         ControllerProbe.poll(controller, outOfFocus);

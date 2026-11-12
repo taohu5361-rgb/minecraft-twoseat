@@ -1,0 +1,347 @@
+{
+  "pid": 20068,
+  "windowActive": true,
+  "controllerProbe": true,
+  "controllerActive": true,
+  "controllers": [
+    {
+      "name": "Controller (Flydigi APEX5 Wireless)",
+      "driver": "Controller (Flydigi APEX5 Wireless)",
+      "selected": false,
+      "standardGamepad": false,
+      "hasMapping": false,
+      "axes": 0,
+      "buttons": 0
+    },
+    {
+      "name": "XInput Controller",
+      "driver": "XInput Controller",
+      "selected": false,
+      "standardGamepad": true,
+      "hasMapping": false,
+      "axes": 10,
+      "buttons": 21
+    }
+  ],
+  "hostInput": "KeyboardInput",
+  "hostAttackKey": false,
+  "hostUseKey": false,
+  "hostScreen": "none",
+  "hostMouse": 1892890357,
+  "hostMouseX": 640.0,
+  "hostMouseY": 360.0,
+  "hostUUID": "10ceda3b-9a9f-3428-98d4-700a86367ee8",
+  "hostPosition": "(106.5, 150.0, 100.5)",
+  "hostYaw": 0.0,
+  "hostPitch": 0.0,
+  "hostToasts": 945913628,
+  "hostAdvancementToast": false,
+  "hostStats": 1785910779,
+  "hostRecipes": 1507384886,
+  "hostAdvancements": 602440699,
+  "hostXP": 0,
+  "hostKnownRecipes": [
+    "minecraft:wooden_pickaxe",
+    "minecraft:wooden_shovel",
+    "minecraft:ladder",
+    "minecraft:wooden_axe",
+    "minecraft:wooden_hoe",
+    "minecraft:campfire",
+    "minecraft:crafting_table",
+    "minecraft:wooden_sword"
+  ],
+  "guestUUID": "ddcb043a-db56-33bb-8f82-6344b6e7dfe2",
+  "guestPosition": "(100.5, 150.0, 103.25749408771532)",
+  "guestYaw": 0.0,
+  "guestPitch": 0.0,
+  "guestToasts": 217290569,
+  "guestAdvancementToast": false,
+  "guestStats": 323342735,
+  "guestRecipes": 1960144711,
+  "guestAdvancements": 380116745,
+  "guestXP": 0,
+  "guestKnownRecipes": [
+    "minecraft:crafting_table"
+  ],
+  "guestScreen": "none",
+  "guestHit": "net.minecraft.world.phys.BlockHitResult@6e2a6063",
+  "guestHitBlock": "BlockPos{x=100, y=151, z=107}",
+  "guestHitFace": "north",
+  "guestHitState": "Block{minecraft:air}",
+  "guestInput": "SecondInput",
+  "guestAttackKey": false,
+  "guestUseKey": false,
+  "guestMouse": 1403808692,
+  "guestMouseX": 0.0,
+  "guestMouseY": 0.0,
+  "guestCarried": "0 air",
+  "serverPlayers": [
+    {
+      "name": "TwoSeatHost",
+      "uuid": "10ceda3b-9a9f-3428-98d4-700a86367ee8",
+      "entityId": 195,
+      "position": "(106.5, 150.0, 100.5)",
+      "health": 19.0,
+      "gameMode": "survival",
+      "selectedItem": "1 stick",
+      "entityClass": "net.minecraft.server.level.ServerPlayer",
+      "playerData": {
+        "Brain": {
+          "memories": {}
+        },
+        "HurtByTimestamp": 1132,
+        "SleepTimer": 0,
+        "Attributes": [
+          {
+            "Base": 0.08,
+            "Name": "forge:entity_gravity"
+          },
+          {
+            "Base": 0.0,
+            "Name": "forge:step_height_addition"
+          },
+          {
+            "Base": 0.10000000149011612,
+            "Name": "minecraft:generic.movement_speed"
+          }
+        ],
+        "Invulnerable": 0,
+        "FallFlying": 0,
+        "PortalCooldown": 0,
+        "AbsorptionAmount": 0.0,
+        "abilities": {
+          "invulnerable": 0,
+          "mayfly": 0,
+          "instabuild": 0,
+          "walkSpeed": 0.1,
+          "mayBuild": 1,
+          "flying": 0,
+          "flySpeed": 0.05
+        },
+        "FallDistance": 0.0,
+        "recipeBook": {
+          "recipes": [
+            "minecraft:crafting_table",
+            "minecraft:wooden_pickaxe",
+            "minecraft:campfire",
+            "minecraft:ladder",
+            "minecraft:wooden_sword",
+            "minecraft:wooden_shovel",
+            "minecraft:wooden_axe",
+            "minecraft:wooden_hoe"
+          ],
+          "isBlastingFurnaceFilteringCraftable": 0,
+          "isSmokerGuiOpen": 0,
+          "isFilteringCraftable": 0,
+          "toBeDisplayed": [
+            "minecraft:crafting_table",
+            "minecraft:wooden_pickaxe",
+            "minecraft:campfire",
+            "minecraft:ladder",
+            "minecraft:wooden_sword",
+            "minecraft:wooden_shovel",
+            "minecraft:wooden_axe",
+            "minecraft:wooden_hoe"
+          ],
+          "isFurnaceGuiOpen": 0,
+          "isGuiOpen": 0,
+          "isFurnaceFilteringCraftable": 0,
+          "isSmokerFilteringCraftable": 0,
+          "isBlastingFurnaceGuiOpen": 0
+        },
+        "CanUpdate": 1,
+        "DeathTime": 0,
+        "XpSeed": 206206559,
+        "XpTotal": 0,
+        "UUID": [
+          281991739,
+          -1700842456,
+          -1730908150,
+          -2043248920
+        ],
+        "playerGameType": 0,
+        "seenCredits": 0,
+        "Motion": [
+          0.0,
+          -0.0784000015258789,
+          0.0
+        ],
+        "Health": 19.0,
+        "foodSaturationLevel": 0.0,
+        "Air": 300,
+        "OnGround": 1,
+        "Dimension": "minecraft:overworld",
+        "Rotation": [
+          0.0,
+          0.0
+        ],
+        "XpLevel": 0,
+        "warden_spawn_tracker": {
+          "warning_level": 0,
+          "ticks_since_last_warning": 7556,
+          "cooldown_ticks": 0
+        },
+        "Score": 0,
+        "Pos": [
+          106.5,
+          150.0,
+          100.5
+        ],
+        "Fire": -20,
+        "XpP": 0.0,
+        "EnderItems": [],
+        "DataVersion": 3465,
+        "foodLevel": 17,
+        "foodExhaustionLevel": 0.7500004,
+        "HurtTime": 0,
+        "SelectedItemSlot": 0,
+        "Inventory": [
+          {
+            "Slot": 0,
+            "id": "minecraft:stick",
+            "Count": 1
+          },
+          {
+            "Slot": 1,
+            "id": "minecraft:dirt",
+            "Count": 3
+          }
+        ],
+        "foodTickTimer": 0
+      },
+      "jumpStat": 5,
+      "advancements": {
+        "minecraft:story/mine_stone": true,
+        "minecraft:story/upgrade_tools": false
+      },
+      "inventory": [
+        "0:1 stick",
+        "1:3 dirt"
+      ]
+    },
+    {
+      "name": "TwoSeatGuest",
+      "uuid": "ddcb043a-db56-33bb-8f82-6344b6e7dfe2",
+      "entityId": 319,
+      "position": "(100.5, 150.0, 103.25749408771532)",
+      "health": 20.0,
+      "gameMode": "survival",
+      "selectedItem": "63 dirt",
+      "entityClass": "net.minecraft.server.level.ServerPlayer",
+      "playerData": {
+        "Brain": {
+          "memories": {}
+        },
+        "HurtByTimestamp": 0,
+        "SleepTimer": 0,
+        "Attributes": [
+          {
+            "Base": 0.08,
+            "Name": "forge:entity_gravity"
+          },
+          {
+            "Base": 0.0,
+            "Name": "forge:step_height_addition"
+          },
+          {
+            "Base": 0.10000000149011612,
+            "Name": "minecraft:generic.movement_speed"
+          }
+        ],
+        "Invulnerable": 0,
+        "FallFlying": 0,
+        "PortalCooldown": 0,
+        "AbsorptionAmount": 0.0,
+        "abilities": {
+          "invulnerable": 0,
+          "mayfly": 0,
+          "instabuild": 0,
+          "walkSpeed": 0.1,
+          "mayBuild": 1,
+          "flying": 0,
+          "flySpeed": 0.05
+        },
+        "FallDistance": 0.0,
+        "recipeBook": {
+          "recipes": [
+            "minecraft:crafting_table"
+          ],
+          "isBlastingFurnaceFilteringCraftable": 0,
+          "isSmokerGuiOpen": 0,
+          "isFilteringCraftable": 0,
+          "toBeDisplayed": [
+            "minecraft:crafting_table"
+          ],
+          "isFurnaceGuiOpen": 0,
+          "isGuiOpen": 0,
+          "isFurnaceFilteringCraftable": 0,
+          "isSmokerFilteringCraftable": 0,
+          "isBlastingFurnaceGuiOpen": 0
+        },
+        "CanUpdate": 1,
+        "DeathTime": 0,
+        "XpSeed": -2018271072,
+        "XpTotal": 0,
+        "UUID": [
+          -573897670,
+          -615107653,
+          -1887280316,
+          -1226317854
+        ],
+        "playerGameType": 0,
+        "seenCredits": 0,
+        "Motion": [
+          0.0,
+          -0.0784000015258789,
+          0.0
+        ],
+        "Health": 20.0,
+        "foodSaturationLevel": 5.0,
+        "Air": 300,
+        "OnGround": 1,
+        "Dimension": "minecraft:overworld",
+        "Rotation": [
+          0.0,
+          0.0
+        ],
+        "XpLevel": 0,
+        "warden_spawn_tracker": {
+          "warning_level": 0,
+          "ticks_since_last_warning": 6196,
+          "cooldown_ticks": 0
+        },
+        "Score": 0,
+        "Pos": [
+          100.5,
+          150.0,
+          103.25749408771532
+        ],
+        "Fire": -20,
+        "XpP": 0.0,
+        "EnderItems": [],
+        "DataVersion": 3465,
+        "foodLevel": 20,
+        "foodExhaustionLevel": 0.53,
+        "HurtTime": 0,
+        "SelectedItemSlot": 0,
+        "Inventory": [
+          {
+            "Slot": 0,
+            "id": "minecraft:dirt",
+            "Count": 63
+          }
+        ],
+        "foodTickTimer": 0
+      },
+      "jumpStat": 0,
+      "advancements": {
+        "minecraft:story/mine_stone": false,
+        "minecraft:story/upgrade_tools": false
+      },
+      "inventory": [
+        "0:63 dirt"
+      ]
+    }
+  ],
+  "serverThread": "Server thread"
+}

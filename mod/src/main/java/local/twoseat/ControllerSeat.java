@@ -15,7 +15,23 @@ public final class ControllerSeat {
     private static ControllerPlayerMovement movement;
 
     public static ControllerEntity controller() {
-        return keyboardOnly ? null : Controlify.instance().getCurrentController().orElse(null);
+        return keyboardOnly ? null : Controlify.instance().getCurrentController().filter(ControllerSeat::usable).orElse(null);
+    }
+
+    private static boolean usable(ControllerEntity controller) {
+        // A device can expose both XInput and a raw/vendor interface with zero controls.
+        // Leave unmapped raw devices to the manual mapper instead of stealing P2 input.
+        return controller.input().map(input -> input.isDefinitelyGamepad() || input.confObj().mapping != null).orElse(false);
+    }
+
+    private static void selectUsableController() {
+        if (keyboardOnly || ControllerProbe.disconnected()) return;
+        if (Controlify.instance().getCurrentController().filter(ControllerSeat::usable).isPresent()) return;
+        Controlify.instance().getControllerManager().ifPresent(manager -> manager.getConnectedControllers().stream()
+            .filter(ControllerSeat::usable).findFirst().ifPresent(c -> {
+                Controlify.instance().setCurrentController(c, false);
+                TwoSeat.LOG.info("[TwoSeat] P2 selected usable controller: {} ({})", c.name(), c.uid());
+            }));
     }
 
     public static boolean active() { return controller() != null; }
@@ -46,12 +62,11 @@ public final class ControllerSeat {
     static void tick() {
         Minecraft mc = Minecraft.getInstance();
         ControllerEntity previous = controller();
+        selectUsableController();
         // The normal Forge START callback is cancelled by ControlifySeatMixin.
         // Polling under P2 also scopes binding contexts and emulated KeyMappings to P2.
         if (Controlify.instance().getControllerManager().isPresent()) Controlify.instance().tick(mc);
-        if (!keyboardOnly && !ControllerProbe.disconnected() && Controlify.instance().getCurrentController().isEmpty())
-            Controlify.instance().getControllerManager().ifPresent(manager -> manager.getConnectedControllers().stream().findFirst()
-                .ifPresent(c -> Controlify.instance().setCurrentController(c, false)));
+        selectUsableController(); // Include a device hot-plugged during the native poll.
         ControllerEntity controller = controller();
         if (previous != null && controller == null) net.minecraft.client.KeyMapping.releaseAll();
         if (controller == null || !mc.isWindowActive() || mc.isPaused()) return;

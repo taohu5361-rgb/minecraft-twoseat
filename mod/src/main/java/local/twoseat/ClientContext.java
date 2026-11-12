@@ -6,6 +6,7 @@ import local.twoseat.mixin.ParticleAccess;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.components.toasts.ToastComponent;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
@@ -26,6 +27,7 @@ final class ClientContext {
     LevelRenderer levelRenderer;
     GameRenderer gameRenderer;
     Gui gui;
+    ToastComponent toasts;
     Screen screen;
     Entity camera, crosshair;
     HitResult hit;
@@ -38,6 +40,7 @@ final class ClientContext {
         keys.capture(mc);
         level = mc.level; player = mc.player; gameMode = mc.gameMode;
         levelRenderer = mc.levelRenderer; gameRenderer = mc.gameRenderer; gui = mc.gui;
+        toasts = mc.getToasts();
         camera = a.twoseat$camera(); crosshair = mc.crosshairPickEntity; hit = mc.hitResult;
         screen = mc.screen; pending = a.twoseat$pending();
         useDelay = a.twoseat$useDelay(); missTime = a.twoseat$missTime();
@@ -50,6 +53,7 @@ final class ClientContext {
         mc.level = level; mc.player = player; mc.gameMode = gameMode;
         ((ParticleAccess)mc.particleEngine).twoseat$level(level);
         a.twoseat$levelRenderer(levelRenderer); a.twoseat$gameRenderer(gameRenderer); a.twoseat$gui(gui);
+        a.twoseat$toasts(toasts);
         a.twoseat$camera(camera); mc.crosshairPickEntity = crosshair; mc.hitResult = hit;
         mc.screen = screen; a.twoseat$pending(pending);
         a.twoseat$useDelay(useDelay); a.twoseat$missTime(missTime);

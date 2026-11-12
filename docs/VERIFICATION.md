@@ -1,3 +1,13 @@
+# 0.2.1-alpha 验证更新
+
+2026-11-12，北京时间：正式Forge47.3.33客户端从单一TwoSeat JAR启动。首次连接回归修复前停在SubmitUnknownControllerScreen，修复后无阻塞页面、P2移动不影响P1；原17项输入/交互回归全部通过。实际APEX5枚举出的无映射零输入接口被排除，自动选中XInput的10轴/21按钮接口；此项确认接口选择，不代替真人按键验收。
+
+两名玩家的ToastComponent、StatsCounter、ClientRecipeBook、ClientAdvancements对象均独立。分别只授予P1/P2一个不同成就，对方没有解锁或收到个人弹窗；共享聊天仍按原版广播带玩家名的进度公告。[P1单独成就截图](screenshots/0.2.1-P1-only-advancement.png)。
+
+正式游戏PID20068分别设置个人数据，正常保存关闭后，新JVM PID34856载入同一世界并加入P2，逐项比较通过：背包/装备、末影箱、经验等级/总值/进度、位置/方向、维度、重生点、配方、成就和跳跃统计。P1为7级/钻石3/末影箱金锭11/铁头盔，P2为19级/绿宝石5/末影箱铁锭13/钻石头盔；P1/P2分别保留自己的Stone Age/Getting an Upgrade、beacon/conduit配方、6/0跳跃统计。两个UUID各有playerdata、advancements、stats文件。证据见[evidence/0.2.1](evidence/0.2.1)。
+
+普通试玩启动关闭probe测试驱动；测试状态源与真实USB/无线设备操作分开记录。跨维度、死亡重生、复杂容器及长期稳定性仍未完整验收。以下为旧版历史。
+
 # 0.2.0-alpha 验证更新
 
 2026-11-12：本版新增内置Controlify手柄与P2上下文路由。正式Forge客户端验证输入隔离、世界交互、背包取放及键盘回退，记录见[CONTROLIFY.md](CONTROLIFY.md)及docs/evidence/controller。真人实体手柄全流程尚未验收。以下为0.1.0历史证据，不将旧版的无手柄范围当成本版限制。

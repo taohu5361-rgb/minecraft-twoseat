@@ -1,0 +1,378 @@
+{
+  "pid": 20068,
+  "windowActive": true,
+  "controllerProbe": false,
+  "controllerActive": false,
+  "controllers": [
+    {
+      "name": "Controller (Flydigi APEX5 Wireless)",
+      "driver": "Controller (Flydigi APEX5 Wireless)",
+      "selected": false,
+      "standardGamepad": false,
+      "hasMapping": false,
+      "axes": 0,
+      "buttons": 0
+    },
+    {
+      "name": "XInput Controller",
+      "driver": "XInput Controller",
+      "selected": false,
+      "standardGamepad": true,
+      "hasMapping": false,
+      "axes": 10,
+      "buttons": 21
+    }
+  ],
+  "hostInput": "KeyboardInput",
+  "hostAttackKey": false,
+  "hostUseKey": false,
+  "hostScreen": "none",
+  "hostMouse": 1892890357,
+  "hostMouseX": 640.0,
+  "hostMouseY": 360.0,
+  "hostUUID": "10ceda3b-9a9f-3428-98d4-700a86367ee8",
+  "hostPosition": "(106.5, 150.0, 100.5)",
+  "hostYaw": 0.0,
+  "hostPitch": 0.0,
+  "hostToasts": 945913628,
+  "hostAdvancementToast": false,
+  "hostStats": 1785910779,
+  "hostRecipes": 1507384886,
+  "hostAdvancements": 602440699,
+  "hostXP": 7,
+  "hostKnownRecipes": [
+    "minecraft:beacon"
+  ],
+  "guestUUID": "ddcb043a-db56-33bb-8f82-6344b6e7dfe2",
+  "guestPosition": "(100.5, 150.0, 100.5)",
+  "guestYaw": 90.0,
+  "guestPitch": 0.0,
+  "guestToasts": 217290569,
+  "guestAdvancementToast": true,
+  "guestStats": 323342735,
+  "guestRecipes": 1960144711,
+  "guestAdvancements": 380116745,
+  "guestXP": 19,
+  "guestKnownRecipes": [
+    "minecraft:conduit"
+  ],
+  "guestScreen": "none",
+  "guestHit": "net.minecraft.world.phys.BlockHitResult@464de3f6",
+  "guestHitBlock": "BlockPos{x=96, y=151, z=100}",
+  "guestHitFace": "east",
+  "guestHitState": "Block{minecraft:air}",
+  "guestInput": "SecondInput",
+  "guestAttackKey": false,
+  "guestUseKey": false,
+  "guestMouse": 1403808692,
+  "guestMouseX": 176.0,
+  "guestMouseY": 494.0,
+  "guestCarried": "0 air",
+  "serverPlayers": [
+    {
+      "name": "TwoSeatHost",
+      "uuid": "10ceda3b-9a9f-3428-98d4-700a86367ee8",
+      "entityId": 195,
+      "position": "(106.5, 150.0, 100.5)",
+      "health": 18.0,
+      "gameMode": "survival",
+      "selectedItem": "3 diamond",
+      "entityClass": "net.minecraft.server.level.ServerPlayer",
+      "playerData": {
+        "Brain": {
+          "memories": {}
+        },
+        "HurtByTimestamp": 682,
+        "SleepTimer": 0,
+        "SpawnForced": 1,
+        "Attributes": [
+          {
+            "Base": 0.08,
+            "Name": "forge:entity_gravity"
+          },
+          {
+            "Base": 0.0,
+            "Name": "minecraft:generic.armor"
+          },
+          {
+            "Base": 0.0,
+            "Name": "forge:step_height_addition"
+          },
+          {
+            "Base": 0.0,
+            "Name": "minecraft:generic.armor_toughness"
+          },
+          {
+            "Base": 0.10000000149011612,
+            "Name": "minecraft:generic.movement_speed"
+          }
+        ],
+        "Invulnerable": 0,
+        "FallFlying": 0,
+        "PortalCooldown": 0,
+        "AbsorptionAmount": 0.0,
+        "abilities": {
+          "invulnerable": 0,
+          "mayfly": 0,
+          "instabuild": 0,
+          "walkSpeed": 0.1,
+          "mayBuild": 1,
+          "flying": 0,
+          "flySpeed": 0.05
+        },
+        "FallDistance": 0.0,
+        "recipeBook": {
+          "recipes": [
+            "minecraft:beacon"
+          ],
+          "isBlastingFurnaceFilteringCraftable": 0,
+          "isSmokerGuiOpen": 0,
+          "isFilteringCraftable": 0,
+          "toBeDisplayed": [
+            "minecraft:beacon"
+          ],
+          "isFurnaceGuiOpen": 0,
+          "isGuiOpen": 0,
+          "isFurnaceFilteringCraftable": 0,
+          "isSmokerFilteringCraftable": 0,
+          "isBlastingFurnaceGuiOpen": 0
+        },
+        "CanUpdate": 1,
+        "DeathTime": 0,
+        "XpSeed": 206206559,
+        "XpTotal": 0,
+        "UUID": [
+          281991739,
+          -1700842456,
+          -1730908150,
+          -2043248920
+        ],
+        "playerGameType": 0,
+        "SpawnDimension": "minecraft:overworld",
+        "seenCredits": 0,
+        "Motion": [
+          0.0,
+          -0.0784000015258789,
+          0.0
+        ],
+        "SpawnY": 150,
+        "Health": 18.0,
+        "SpawnZ": 100,
+        "foodSaturationLevel": 0.0,
+        "SpawnX": 106,
+        "Air": 300,
+        "OnGround": 1,
+        "Dimension": "minecraft:overworld",
+        "SpawnAngle": 0.0,
+        "Rotation": [
+          0.0,
+          0.0
+        ],
+        "XpLevel": 7,
+        "warden_spawn_tracker": {
+          "warning_level": 0,
+          "ticks_since_last_warning": 8529,
+          "cooldown_ticks": 0
+        },
+        "Score": 0,
+        "Pos": [
+          106.5,
+          150.0,
+          100.5
+        ],
+        "Fire": -20,
+        "XpP": 0.0,
+        "EnderItems": [
+          {
+            "Slot": 0,
+            "id": "minecraft:gold_ingot",
+            "Count": 11
+          }
+        ],
+        "DataVersion": 3465,
+        "foodLevel": 17,
+        "foodExhaustionLevel": 0.90000045,
+        "HurtTime": 0,
+        "SelectedItemSlot": 0,
+        "Inventory": [
+          {
+            "Slot": 0,
+            "id": "minecraft:diamond",
+            "Count": 3
+          },
+          {
+            "Slot": 103,
+            "id": "minecraft:iron_helmet",
+            "Count": 1,
+            "tag": {
+              "Damage": 0
+            }
+          }
+        ],
+        "foodTickTimer": 0
+      },
+      "jumpStat": 6,
+      "advancements": {
+        "minecraft:story/mine_stone": true,
+        "minecraft:story/upgrade_tools": false
+      },
+      "inventory": [
+        "0:3 diamond",
+        "39:1 iron_helmet"
+      ]
+    },
+    {
+      "name": "TwoSeatGuest",
+      "uuid": "ddcb043a-db56-33bb-8f82-6344b6e7dfe2",
+      "entityId": 319,
+      "position": "(100.5, 150.0, 100.5)",
+      "health": 20.0,
+      "gameMode": "survival",
+      "selectedItem": "5 emerald",
+      "entityClass": "net.minecraft.server.level.ServerPlayer",
+      "playerData": {
+        "Brain": {
+          "memories": {}
+        },
+        "HurtByTimestamp": 0,
+        "SleepTimer": 0,
+        "SpawnForced": 1,
+        "Attributes": [
+          {
+            "Base": 0.08,
+            "Name": "forge:entity_gravity"
+          },
+          {
+            "Base": 0.0,
+            "Name": "minecraft:generic.armor"
+          },
+          {
+            "Base": 0.0,
+            "Name": "forge:step_height_addition"
+          },
+          {
+            "Base": 0.0,
+            "Name": "minecraft:generic.armor_toughness"
+          },
+          {
+            "Base": 0.10000000149011612,
+            "Name": "minecraft:generic.movement_speed"
+          }
+        ],
+        "Invulnerable": 0,
+        "FallFlying": 0,
+        "PortalCooldown": 0,
+        "AbsorptionAmount": 0.0,
+        "abilities": {
+          "invulnerable": 0,
+          "mayfly": 0,
+          "instabuild": 0,
+          "walkSpeed": 0.1,
+          "mayBuild": 1,
+          "flying": 0,
+          "flySpeed": 0.05
+        },
+        "FallDistance": 0.0,
+        "recipeBook": {
+          "recipes": [
+            "minecraft:conduit"
+          ],
+          "isBlastingFurnaceFilteringCraftable": 0,
+          "isSmokerGuiOpen": 0,
+          "isFilteringCraftable": 0,
+          "toBeDisplayed": [
+            "minecraft:conduit"
+          ],
+          "isFurnaceGuiOpen": 0,
+          "isGuiOpen": 0,
+          "isFurnaceFilteringCraftable": 0,
+          "isSmokerFilteringCraftable": 0,
+          "isBlastingFurnaceGuiOpen": 0
+        },
+        "CanUpdate": 1,
+        "DeathTime": 0,
+        "XpSeed": -2018271072,
+        "XpTotal": 0,
+        "UUID": [
+          -573897670,
+          -615107653,
+          -1887280316,
+          -1226317854
+        ],
+        "playerGameType": 0,
+        "SpawnDimension": "minecraft:overworld",
+        "seenCredits": 0,
+        "Motion": [
+          0.0,
+          -0.0784000015258789,
+          0.0
+        ],
+        "SpawnY": 150,
+        "Health": 20.0,
+        "SpawnZ": 100,
+        "foodSaturationLevel": 5.0,
+        "SpawnX": 100,
+        "Air": 300,
+        "OnGround": 1,
+        "Dimension": "minecraft:overworld",
+        "SpawnAngle": 0.0,
+        "Rotation": [
+          90.0,
+          0.0
+        ],
+        "XpLevel": 19,
+        "warden_spawn_tracker": {
+          "warning_level": 0,
+          "ticks_since_last_warning": 7169,
+          "cooldown_ticks": 0
+        },
+        "Score": 0,
+        "Pos": [
+          100.5,
+          150.0,
+          100.5
+        ],
+        "Fire": -20,
+        "XpP": 0.0,
+        "EnderItems": [
+          {
+            "Slot": 0,
+            "id": "minecraft:iron_ingot",
+            "Count": 13
+          }
+        ],
+        "DataVersion": 3465,
+        "foodLevel": 20,
+        "foodExhaustionLevel": 0.635,
+        "HurtTime": 0,
+        "SelectedItemSlot": 0,
+        "Inventory": [
+          {
+            "Slot": 0,
+            "id": "minecraft:emerald",
+            "Count": 5
+          },
+          {
+            "Slot": 103,
+            "id": "minecraft:diamond_helmet",
+            "Count": 1,
+            "tag": {
+              "Damage": 0
+            }
+          }
+        ],
+        "foodTickTimer": 0
+      },
+      "jumpStat": 0,
+      "advancements": {
+        "minecraft:story/mine_stone": false,
+        "minecraft:story/upgrade_tools": true
+      },
+      "inventory": [
+        "0:5 emerald",
+        "39:1 diamond_helmet"
+      ]
+    }
+  ],
+  "serverThread": "Server thread"
+}

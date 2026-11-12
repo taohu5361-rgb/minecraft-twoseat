@@ -4,6 +4,7 @@ import com.mojang.blaze3d.pipeline.RenderTarget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.components.toasts.ToastComponent;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LevelRenderer;
@@ -20,6 +21,7 @@ public interface MinecraftAccess {
     @Mutable @Accessor("levelRenderer") void twoseat$levelRenderer(LevelRenderer value);
     @Mutable @Accessor("gameRenderer") void twoseat$gameRenderer(GameRenderer value);
     @Mutable @Accessor("gui") void twoseat$gui(Gui value);
+    @Mutable @Accessor("toast") void twoseat$toasts(ToastComponent value);
     @Mutable @Accessor("particleEngine") void twoseat$particles(ParticleEngine value);
     @Accessor("cameraEntity") Entity twoseat$camera();
     @Accessor("cameraEntity") void twoseat$camera(Entity value);

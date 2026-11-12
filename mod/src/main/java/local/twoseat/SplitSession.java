@@ -169,6 +169,7 @@ public final class SplitSession {
         ((GameRendererAccess)guest.gameRenderer).twoseat$shaders().putAll(((GameRendererAccess)mc.gameRenderer).twoseat$shaders());
         ((GameRendererAccess)guest.gameRenderer).twoseat$blitShader(((GameRendererAccess)mc.gameRenderer).twoseat$blitShader());
         guest.gui = new ForgeGui(mc);
+        guest.toasts = new net.minecraft.client.gui.components.toasts.ToastComponent(mc);
         connection = Connection.connectToLocalServer(mc.getConnection().getConnection().getRemoteAddress());
         // Forge's Connection activation handler registers its login channel asynchronously.
         // Registering it again here races channelActive and can see a null channel.

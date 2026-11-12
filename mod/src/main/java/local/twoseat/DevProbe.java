@@ -42,6 +42,7 @@ final class DevProbe {
                 case "join" -> session.start();
                 case "leave" -> session.stop();
                 case "controllerConnect" -> session.withGuest(ControllerProbe::connect);
+                case "controllerFirstConnect" -> session.withGuest(() -> ControllerProbe.connect(true));
                 case "controllerState" -> ControllerProbe.state(cmd.getAsJsonObject("state"));
                 case "controllerDisconnect" -> session.withGuest(ControllerProbe::disconnect);
                 case "controllerRestore" -> session.withGuest(ControllerProbe::restore);
@@ -60,6 +61,7 @@ final class DevProbe {
                     }
                 }
                 case "inspect" -> inspect(session, id);
+                case "clearToasts" -> { mc.getToasts().clear(); session.withGuest(() -> mc.getToasts().clear()); }
                 case "screenshot" -> screenshot = id;
                 case "quit" -> mc.stop();
                 default -> throw new IllegalArgumentException(op);
@@ -75,6 +77,24 @@ final class DevProbe {
         report.addProperty("windowActive", mc.isWindowActive());
         report.addProperty("controllerProbe", ControllerProbe.connected());
         report.addProperty("controllerActive", ControllerSeat.active());
+        JsonArray controllers = new JsonArray();
+        dev.isxander.controlify.Controlify.instance().getControllerManager().ifPresent(manager -> {
+            for (var controller : manager.getConnectedControllers()) {
+                JsonObject entry = new JsonObject();
+                entry.addProperty("uid", controller.uid());
+                entry.addProperty("name", controller.name());
+                entry.addProperty("driver", controller.driverName());
+                entry.addProperty("selected", dev.isxander.controlify.Controlify.instance().getCurrentController().orElse(null) == controller);
+                controller.input().ifPresent(input -> {
+                    entry.addProperty("standardGamepad", input.isDefinitelyGamepad());
+                    entry.addProperty("hasMapping", input.confObj().mapping != null);
+                    entry.addProperty("axes", input.axisCount());
+                    entry.addProperty("buttons", input.buttonCount());
+                });
+                controllers.add(entry);
+            }
+        });
+        report.add("controllers", controllers);
         report.addProperty("hostInput", mc.player == null ? "none" : mc.player.input.getClass().getSimpleName());
         report.addProperty("hostAttackKey", mc.options.keyAttack.isDown());
         report.addProperty("hostUseKey", mc.options.keyUse.isDown());
@@ -86,11 +106,13 @@ final class DevProbe {
         report.addProperty("hostPosition", mc.player == null ? "none" : mc.player.position().toString());
         report.addProperty("hostYaw", mc.player == null ? 0 : mc.player.getYRot());
         report.addProperty("hostPitch", mc.player == null ? 0 : mc.player.getXRot());
+        clientProgress(mc, report, "host");
         session.withGuest(() -> {
             report.addProperty("guestUUID", mc.player == null ? "none" : mc.player.getUUID().toString());
             report.addProperty("guestPosition", mc.player == null ? "none" : mc.player.position().toString());
             report.addProperty("guestYaw", mc.player == null ? 0 : mc.player.getYRot());
             report.addProperty("guestPitch", mc.player == null ? 0 : mc.player.getXRot());
+            clientProgress(mc, report, "guest");
             report.addProperty("guestScreen", mc.screen == null ? "none" : mc.screen.getClass().getSimpleName());
             report.addProperty("guestHit", String.valueOf(mc.hitResult));
             if (mc.hitResult instanceof net.minecraft.world.phys.BlockHitResult block) {
@@ -135,6 +157,15 @@ final class DevProbe {
                 entry.addProperty("gameMode", p.gameMode.getGameModeForPlayer().getName());
                 entry.addProperty("selectedItem", p.getMainHandItem().toString());
                 entry.addProperty("entityClass", p.getClass().getName());
+                entry.add("playerData", net.minecraft.nbt.NbtOps.INSTANCE.convertTo(com.mojang.serialization.JsonOps.INSTANCE,
+                    p.saveWithoutId(new net.minecraft.nbt.CompoundTag())));
+                entry.addProperty("jumpStat", p.getStats().getValue(net.minecraft.stats.Stats.CUSTOM, net.minecraft.stats.Stats.JUMP));
+                JsonObject advancements = new JsonObject();
+                for (String name : new String[]{"minecraft:story/mine_stone", "minecraft:story/upgrade_tools"}) {
+                    var advancement = server.getAdvancements().getAdvancement(new net.minecraft.resources.ResourceLocation(name));
+                    advancements.addProperty(name, p.getAdvancements().getOrStartProgress(advancement).isDone());
+                }
+                entry.add("advancements", advancements);
                 JsonArray inventory = new JsonArray();
                 for (int i = 0; i < p.getInventory().getContainerSize(); i++) {
                     if (!p.getInventory().getItem(i).isEmpty()) inventory.add(i + ":" + p.getInventory().getItem(i));
@@ -146,6 +177,21 @@ final class DevProbe {
             report.addProperty("serverThread", Thread.currentThread().getName());
             write(mc, id, report);
         });
+    }
+    private static void clientProgress(Minecraft mc, JsonObject report, String seat) {
+        report.addProperty(seat + "Toasts", System.identityHashCode(mc.getToasts()));
+        report.addProperty(seat + "AdvancementToast", mc.getToasts().getToast(
+            net.minecraft.client.gui.components.toasts.AdvancementToast.class,
+            net.minecraft.client.gui.components.toasts.Toast.NO_TOKEN) != null);
+        if (mc.player == null) return;
+        report.addProperty(seat + "Stats", System.identityHashCode(mc.player.getStats()));
+        report.addProperty(seat + "Recipes", System.identityHashCode(mc.player.getRecipeBook()));
+        report.addProperty(seat + "Advancements", System.identityHashCode(mc.getConnection().getAdvancements()));
+        report.addProperty(seat + "XP", mc.player.experienceLevel);
+        JsonArray recipes = new JsonArray();
+        for (var recipe : mc.level.getRecipeManager().getRecipes())
+            if (mc.player.getRecipeBook().contains(recipe)) recipes.add(recipe.getId().toString());
+        report.add(seat + "KnownRecipes", recipes);
     }
     private static void write(Minecraft mc, String id, JsonObject value) {
         try {
