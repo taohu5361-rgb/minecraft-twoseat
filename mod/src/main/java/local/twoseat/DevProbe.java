@@ -52,6 +52,32 @@ final class DevProbe {
                 }
                 case "keys" -> { KEYS.clear(); for (JsonElement e : cmd.getAsJsonArray("keys")) KEYS.add(e.getAsInt()); }
                 case "hostForward" -> mc.options.keyUp.setDown(cmd.get("down").getAsBoolean());
+                case "pressKey" -> {
+                    var keyboard = (local.twoseat.mixin.KeyboardAccess)mc.keyboardHandler;
+                    int key = cmd.get("key").getAsInt();
+                    keyboard.twoseat$key(mc.getWindow().getWindow(), key, 0, org.lwjgl.glfw.GLFW.GLFW_PRESS, 0);
+                    keyboard.twoseat$key(mc.getWindow().getWindow(), key, 0, org.lwjgl.glfw.GLFW.GLFW_RELEASE, 0);
+                }
+                case "hostMenu" -> mc.pauseGame(false);
+                case "guestMenu" -> session.withGuest(() -> mc.pauseGame(false));
+                case "hostCloseMenu" -> { if (mc.screen != null) mc.screen.onClose(); }
+                case "guestCloseMenu" -> session.withGuest(() -> { if (mc.screen != null) mc.screen.onClose(); });
+                case "clickMenuWidget" -> {
+                    double[] point = new double[2];
+                    boolean guest = cmd.get("guest").getAsBoolean();
+                    Runnable locate = () -> {
+                        var buttons = mc.screen.children().stream().filter(c -> c instanceof net.minecraft.client.gui.components.Button).toList();
+                        var b = (net.minecraft.client.gui.components.Button)buttons.get(cmd.get("index").getAsInt());
+                        point[0] = (b.getX()+b.getWidth()/2.0)/mc.screen.width*mc.getWindow().getScreenWidth()/2.0;
+                        point[1] = (b.getY()+b.getHeight()/2.0)/mc.screen.height*mc.getWindow().getScreenHeight();
+                    };
+                    if (guest) { session.withGuest(locate); point[0]+=mc.getWindow().getScreenWidth()/2.0; }
+                    else locate.run();
+                    var mouse = (local.twoseat.mixin.MouseAccess)mc.mouseHandler;
+                    mouse.twoseat$move(mc.getWindow().getWindow(),point[0],point[1]);
+                    mouse.twoseat$press(mc.getWindow().getWindow(),0,org.lwjgl.glfw.GLFW.GLFW_PRESS,0);
+                    mouse.twoseat$press(mc.getWindow().getWindow(),0,org.lwjgl.glfw.GLFW.GLFW_RELEASE,0);
+                }
                 case "server" -> {
                     if (mc.getSingleplayerServer() != null) {
                         String command = cmd.get("command").getAsString();
@@ -91,6 +117,7 @@ final class DevProbe {
         JsonObject report = new JsonObject();
         report.addProperty("pid", ProcessHandle.current().pid());
         report.addProperty("windowActive", mc.isWindowActive());
+        report.addProperty("paused", mc.isPaused());
         report.addProperty("controllerProbe", ControllerProbe.connected());
         report.addProperty("controllerActive", ControllerSeat.active());
         JsonArray controllers = new JsonArray();
@@ -162,6 +189,8 @@ final class DevProbe {
         var server = mc.getSingleplayerServer();
         if (server == null) { write(mc, id, report); return; }
         server.execute(() -> {
+            report.addProperty("serverTick", server.getTickCount());
+            report.addProperty("worldTime", server.overworld().getGameTime());
             JsonArray players = new JsonArray();
             for (var p : server.getPlayerList().getPlayers()) {
                 JsonObject entry = new JsonObject();

@@ -41,6 +41,7 @@ public final class SplitSession {
     private MouseHandler physicalMouse;
     private boolean insideGuest, rendering, toggleHeld, inventoryHeld, attackHeld;
     private boolean toggleRequested, inventoryRequested, attackRequested, useRequested;
+    private boolean guestMenuRequested, leaveRequested, endRequested;
     private TextureTarget leftTarget, rightTarget;
     private int ticks;
 
@@ -54,12 +55,27 @@ public final class SplitSession {
     }
 
     public static boolean isGuest() { return instance != null && instance.insideGuest; }
+    public static boolean isActive() { return instance != null && instance.guest != null; }
+    public static void openMenu() {
+        if (!isActive()) return;
+        var mc = Minecraft.getInstance();
+        if (mc.screen == null) {
+            net.minecraft.client.KeyMapping.releaseAll(); // Scoped by the current seat's saved keys.
+            mc.setScreen(new SeatPauseScreen(isGuest()));
+        }
+    }
+    public static void requestLeave(boolean endWorld) {
+        if (instance == null) return;
+        if (endWorld) instance.endRequested = true;
+        else instance.leaveRequested = true;
+    }
     public static void keyEvent(int key, int action) {
         SplitSession s = instance;
         if (s == null || action != GLFW.GLFW_PRESS) return;
         if (key == GLFW.GLFW_KEY_F8) s.toggleRequested = true;
         if (key == GLFW.GLFW_KEY_F9) ControllerSeat.toggleKeyboard();
         if (s.guest == null) return;
+        if (key == GLFW.GLFW_KEY_F10) s.guestMenuRequested = true;
         if (ControllerSeat.active()) return;
         if (key == GLFW.GLFW_KEY_O) s.inventoryRequested = true;
         if (key == GLFW.GLFW_KEY_U) s.attackRequested = true;
@@ -77,16 +93,24 @@ public final class SplitSession {
     private boolean guestMenu() { return guest != null && guest.screen != null && guest.player != null && !insideGuest && !ControllerSeat.active(); }
     public static boolean menuKey(int key, int scan, int action, int mods) {
         SplitSession s = instance;
-        if (s == null || !s.guestMenu() || key == GLFW.GLFW_KEY_F8 || key == GLFW.GLFW_KEY_O) return false;
+        if (s == null || !s.guestMenu() || key == GLFW.GLFW_KEY_F8 || key == GLFW.GLFW_KEY_F9 || key == GLFW.GLFW_KEY_F10 || key == GLFW.GLFW_KEY_O || key == GLFW.GLFW_KEY_ESCAPE) return false;
+        // Keyboard/mouse belong to P1. P2 keyboard menus may use UI navigation keys,
+        // while P1's movement and its own menu keep their original keyboard events.
+        if (s.mc.screen != null || s.hostMovementKey(key)) return false;
         s.withGuest(() -> {
             if (action == GLFW.GLFW_RELEASE) s.mc.screen.keyReleased(key, scan, mods);
             else s.mc.screen.keyPressed(key, scan, mods);
         });
         return true;
     }
+    private boolean hostMovementKey(int key) {
+        for (var mapping : new net.minecraft.client.KeyMapping[]{mc.options.keyUp,mc.options.keyDown,mc.options.keyLeft,mc.options.keyRight,mc.options.keyJump,mc.options.keyShift,mc.options.keySprint})
+            if (mapping.matches(key,0)) return true;
+        return false;
+    }
     public static boolean menuChar(int codepoint, int mods) {
         SplitSession s = instance;
-        if (s == null || !s.guestMenu()) return false;
+        if (s == null || !s.guestMenu() || s.mc.screen != null) return false;
         s.withGuest(() -> { for (char c : Character.toChars(codepoint)) s.mc.screen.charTyped(c, mods); });
         return true;
     }
@@ -106,9 +130,12 @@ public final class SplitSession {
     }
     public static boolean menuMouse(int button, int action) {
         SplitSession s = instance;
-        if (s == null) return false;
-        if (!s.guestMenu()) {
+        if (s == null || s.insideGuest) return false;
+        if (s.mc.screen == null && s.physicalMouse != null && s.physicalMouse.isMouseGrabbed()) return false;
+        boolean right = s.physicalMouse != null && ((MouseAccess)s.physicalMouse).twoseat$rawX() >= s.mc.getWindow().getScreenWidth()/2.0;
+        if (!s.guestMenu() || !right) {
             if (s.guest == null || s.mc.screen == null || s.insideGuest) return false;
+            if (right) return true; // A right-half click cannot activate a left-half widget.
             double x = 2 * s.mc.mouseHandler.xpos() * s.mc.screen.width / s.mc.getWindow().getScreenWidth();
             double y = s.menuY();
             if (action == GLFW.GLFW_PRESS) s.mc.screen.mouseClicked(x, y, button);
@@ -123,9 +150,12 @@ public final class SplitSession {
     }
     public static boolean menuScroll(double amount) {
         SplitSession s = instance;
-        if (s == null) return false;
-        if (!s.guestMenu()) {
+        if (s == null || s.insideGuest) return false;
+        if (s.mc.screen == null && s.physicalMouse != null && s.physicalMouse.isMouseGrabbed()) return false;
+        boolean right = s.physicalMouse != null && ((MouseAccess)s.physicalMouse).twoseat$rawX() >= s.mc.getWindow().getScreenWidth()/2.0;
+        if (!s.guestMenu() || !right) {
             if (s.guest == null || s.mc.screen == null || s.insideGuest) return false;
+            if (right) return true;
             s.mc.screen.mouseScrolled(2 * s.mc.mouseHandler.xpos() * s.mc.screen.width / s.mc.getWindow().getScreenWidth(), s.menuY(), amount);
             return true;
         }
@@ -196,10 +226,12 @@ public final class SplitSession {
         guestMouse = null;
         ControllerSeat.reset();
         inventoryRequested = attackRequested = useRequested = false;
+        guestMenuRequested = inventoryHeld = attackHeld = false;
         if (leftTarget != null) leftTarget.destroyBuffers();
         if (rightTarget != null) rightTarget.destroyBuffers();
         leftTarget = rightTarget = null;
         viewportWidth = 0;
+        if (mc.screen != null) mc.screen.resize(mc,mc.getWindow().getGuiScaledWidth(),mc.getWindow().getGuiScaledHeight());
         if (mc.level != null) {
             mc.levelRenderer.resize(mc.getWindow().getWidth(), mc.getWindow().getHeight());
             mc.gameRenderer.resize(mc.getWindow().getWidth(), mc.getWindow().getHeight());
@@ -212,11 +244,26 @@ public final class SplitSession {
         if (event.phase != TickEvent.Phase.END || insideGuest) return;
         ticks++;
         DevProbe.tick(this);
+        if (endRequested) {
+            endRequested=leaveRequested=false;
+            stop();
+            if (mc.level != null) mc.level.disconnect();
+            mc.clearLevel(); mc.setScreen(new net.minecraft.client.gui.screens.TitleScreen());
+            return;
+        }
+        if (leaveRequested) { leaveRequested=false; stop(); return; }
         boolean toggle = SecondInput.down(GLFW.GLFW_KEY_F8);
         if (toggleRequested || (toggle && !toggleHeld)) { if (guest == null) start(); else stop(); }
         toggleRequested = false;
         toggleHeld = toggle;
         if (guest == null) return;
+        if (guestMenuRequested && guest.player != null) {
+            guestMenuRequested=false;
+            withGuest(() -> {
+                if (mc.screen == null) openMenu();
+                else mc.player.closeContainer();
+            });
+        }
         if (mc.level == null || mc.getSingleplayerServer() == null) { stop(); return; }
         if (connection.channel() == null) return;
         if (!connection.isConnected()) { stop(); return; }

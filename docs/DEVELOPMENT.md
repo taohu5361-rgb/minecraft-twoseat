@@ -1,3 +1,9 @@
+# 0.2.3-alpha 独立菜单
+
+用户要求一侧Esc/手柄菜单不暂停另一方。Minecraft全局pause和pauseGame声音暂停是原缺口；本版SeatPauseScreen按玩家分开，runTick的Screen暂停判断在分屏时关闭，保持单人原版行为。输入路由明确Esc给P1、F10/Start给P2，Mouse按半屏归属；P1菜单内KeyboardInput归零，P2菜单不处理角色转向。退出请求延迟回P1上下文执行，P2只离开自己，P1保存结束双方。P2离开后旧菜单非暂停，避免刚变为单人就冻结连接断开清理。说明与回归见MENUS.md；原本共享物理鼠标的键盘后备仍由P1游戏瞄准优先。
+
+以下保留历史。
+
 # 0.2.2-alpha 天气与模拟修复
 
 用户反馈P1拉远后P2雨线反复上下跳动，要求8区块加载/8区块模拟及帧率测试，并追加验证生物。根因已通过真实客户端复现：P2漏掉LevelRenderer.tick，10秒内P1渲染时钟前进200刻/P2为0，P2动画时间回退200次。补齐P2渲染器刻、ClientLevel.animateTick和ParticleEngine.tick；ParticleState按上下文分开活动粒子/发射器/待加入队列/组计数，共享生成器、纹理图集与资源。音频继续P1监听。

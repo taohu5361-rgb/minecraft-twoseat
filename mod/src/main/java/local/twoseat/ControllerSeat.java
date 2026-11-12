@@ -71,7 +71,9 @@ public final class ControllerSeat {
         if (previous != null && controller == null) net.minecraft.client.KeyMapping.releaseAll();
         if (controller == null || !mc.isWindowActive() || mc.isPaused()) return;
         if (mc.screen == null) {
-            if (ControlifyBindings.INVENTORY.on(controller).justPressed()) {
+            if (ControlifyBindings.PAUSE.on(controller).justPressed()) {
+                SplitSession.openMenu();
+            } else if (ControlifyBindings.INVENTORY.on(controller).justPressed()) {
                 mc.setScreen(new InventoryScreen(mc.player));
             } else {
                 if (ControlifyBindings.NEXT_SLOT.on(controller).justPressed()) mc.player.getInventory().swapPaint(-1);
@@ -91,7 +93,7 @@ public final class ControllerSeat {
     static void renderInput() {
         Minecraft mc = Minecraft.getInstance();
         if (!active() || mc.isPaused() || !mc.isWindowActive()) return;
-        Controlify.instance().inGameInputHandler().ifPresent(handler -> handler.processPlayerLook(mc.getDeltaFrameTime()));
+        if (mc.screen == null) Controlify.instance().inGameInputHandler().ifPresent(handler -> handler.processPlayerLook(mc.getDeltaFrameTime()));
         if (mc.screen != null) Controlify.instance().virtualMouseHandler().updateMouse();
     }
 }

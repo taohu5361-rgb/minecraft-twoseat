@@ -1,6 +1,6 @@
 # 云端源码审查入口
 
-当前版本为TwoSeat0.2.2-alpha，保留Minecraft1.20.1、Forge47.3.33、Java17单进程双人分屏，并集成Controlify Forgified2.1.9。先读[手柄集成与验收](CONTROLIFY.md)及[LGPL与源码声明](../THIRD-PARTY.md)，再检查下方基础架构。长期需求不等于已实现功能。
+当前版本为TwoSeat0.2.3-alpha，保留Minecraft1.20.1、Forge47.3.33、Java17单进程双人分屏，并集成Controlify Forgified2.1.9。先读[手柄集成与验收](CONTROLIFY.md)及[LGPL与源码声明](../THIRD-PARTY.md)，再检查下方基础架构。长期需求不等于已实现功能。
 
 ## 建议阅读顺序
 

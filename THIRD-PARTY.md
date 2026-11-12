@@ -1,6 +1,6 @@
 # 第三方代码与重新组合说明
 
-TwoSeat 0.2.2-alpha 包含 Controlify: Forgified 2.1.9 作为内置手柄引擎，并包含它依赖的 YetAnotherConfigLib 3.6.6。安装者只需放入一个 TwoSeat JAR。Forge 模组列表仍会显示这些内置模块的原始名称与作者，以保留身份、资源空间、配置界面及许可证信息。不要另装独立 Controlify 或 YACL 副本。
+TwoSeat 0.2.3-alpha 包含 Controlify: Forgified 2.1.9 作为内置手柄引擎，并包含它依赖的 YetAnotherConfigLib 3.6.6。安装者只需放入一个 TwoSeat JAR。Forge 模组列表仍会显示这些内置模块的原始名称与作者，以保留身份、资源空间、配置界面及许可证信息。不要另装独立 Controlify 或 YACL 副本。
 
 ## LGPL 部分
 

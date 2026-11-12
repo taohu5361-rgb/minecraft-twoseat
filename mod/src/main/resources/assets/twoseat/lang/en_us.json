@@ -1,0 +1,8 @@
+{
+  "twoseat.menu.p1": "Player 1 Menu",
+  "twoseat.menu.p2": "Player 2 Menu",
+  "twoseat.menu.options": "Settings (both players)",
+  "twoseat.menu.leave": "Leave split screen (P2 only)",
+  "twoseat.menu.end": "Save and end both players’ session",
+  "twoseat.menu.running": "The world keeps running while menus are open"
+}

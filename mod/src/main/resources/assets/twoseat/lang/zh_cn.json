@@ -1,0 +1,8 @@
+{
+  "twoseat.menu.p1": "玩家一菜单",
+  "twoseat.menu.p2": "玩家二菜单",
+  "twoseat.menu.options": "设置（影响双方）",
+  "twoseat.menu.leave": "离开分屏（仅玩家二）",
+  "twoseat.menu.end": "保存并结束双方游戏",
+  "twoseat.menu.running": "打开菜单时，世界与另一名玩家继续运行"
+}

@@ -1,0 +1,206 @@
+{
+  "pid": 35912,
+  "windowActive": true,
+  "paused": false,
+  "controllerProbe": false,
+  "controllerActive": false,
+  "controllers": [],
+  "hostInput": "KeyboardInput",
+  "hostAttackKey": false,
+  "hostUseKey": false,
+  "hostScreen": "SeatPauseScreen",
+  "hostMouse": 1548428044,
+  "hostMouseX": 1440.0,
+  "hostMouseY": 644.0,
+  "hostUUID": "10ceda3b-9a9f-3428-98d4-700a86367ee8",
+  "hostPosition": "(106.5, 150.0, 103.94998993011403)",
+  "hostYaw": 0.0,
+  "hostPitch": 0.0,
+  "hostRendererTicks": 1135,
+  "hostParticleCount": "782",
+  "hostParticleState": 1242121844,
+  "hostParticleTypes": {
+    "WaterDropParticle": {
+      "count": 699,
+      "maxAge": 0
+    },
+    "GlowParticle": {
+      "count": 83,
+      "maxAge": 29
+    }
+  },
+  "hostParticleWorldMismatches": 0,
+  "hostServerSimulationDistance": 8,
+  "hostToasts": 558530980,
+  "hostAdvancementToast": false,
+  "hostStats": 1564353762,
+  "hostRecipes": 671926592,
+  "hostAdvancements": 1783072384,
+  "hostXP": 7,
+  "hostKnownRecipes": [
+    "minecraft:beacon"
+  ],
+  "serverTick": 1145,
+  "worldTime": 85143,
+  "serverPlayers": [
+    {
+      "name": "TwoSeatHost",
+      "uuid": "10ceda3b-9a9f-3428-98d4-700a86367ee8",
+      "entityId": 159,
+      "position": "(106.5, 150.0, 103.94998993011403)",
+      "health": 16.119999,
+      "gameMode": "survival",
+      "selectedItem": "1 dirt",
+      "entityClass": "net.minecraft.server.level.ServerPlayer",
+      "playerData": {
+        "Brain": {
+          "memories": {}
+        },
+        "HurtByTimestamp": 19513,
+        "SleepTimer": 0,
+        "SpawnForced": 1,
+        "Attributes": [
+          {
+            "Base": 0.0,
+            "Name": "minecraft:generic.armor_toughness"
+          },
+          {
+            "Base": 0.0,
+            "Name": "minecraft:generic.armor"
+          },
+          {
+            "Base": 0.0,
+            "Name": "forge:step_height_addition"
+          },
+          {
+            "Base": 0.08,
+            "Name": "forge:entity_gravity"
+          },
+          {
+            "Base": 0.10000000149011612,
+            "Name": "minecraft:generic.movement_speed"
+          }
+        ],
+        "Invulnerable": 0,
+        "FallFlying": 0,
+        "PortalCooldown": 0,
+        "AbsorptionAmount": 0.0,
+        "abilities": {
+          "invulnerable": 0,
+          "mayfly": 0,
+          "instabuild": 0,
+          "walkSpeed": 0.1,
+          "mayBuild": 1,
+          "flying": 0,
+          "flySpeed": 0.05
+        },
+        "FallDistance": 0.0,
+        "recipeBook": {
+          "recipes": [
+            "minecraft:beacon"
+          ],
+          "isBlastingFurnaceFilteringCraftable": 0,
+          "isSmokerGuiOpen": 0,
+          "isFilteringCraftable": 0,
+          "toBeDisplayed": [
+            "minecraft:beacon"
+          ],
+          "isFurnaceGuiOpen": 0,
+          "isGuiOpen": 0,
+          "isFurnaceFilteringCraftable": 0,
+          "isBlastingFurnaceGuiOpen": 0,
+          "isSmokerFilteringCraftable": 0
+        },
+        "CanUpdate": 1,
+        "DeathTime": 0,
+        "XpSeed": 206206559,
+        "XpTotal": 1,
+        "UUID": [
+          281991739,
+          -1700842456,
+          -1730908150,
+          -2043248920
+        ],
+        "playerGameType": 0,
+        "SpawnDimension": "minecraft:overworld",
+        "seenCredits": 0,
+        "Motion": [
+          0.0,
+          -0.0784000015258789,
+          0.0
+        ],
+        "SpawnY": 150,
+        "Health": 16.119999,
+        "SpawnZ": 100,
+        "foodSaturationLevel": 0.0,
+        "SpawnX": 106,
+        "Air": 300,
+        "OnGround": 1,
+        "Dimension": "minecraft:overworld",
+        "SpawnAngle": 0.0,
+        "Rotation": [
+          0.0,
+          0.0
+        ],
+        "XpLevel": 7,
+        "warden_spawn_tracker": {
+          "warning_level": 0,
+          "ticks_since_last_warning": 759,
+          "cooldown_ticks": 0
+        },
+        "Score": 1,
+        "Pos": [
+          106.5,
+          150.0,
+          103.94998993011403
+        ],
+        "Fire": -20,
+        "XpP": 0.04761905,
+        "EnderItems": [
+          {
+            "Slot": 0,
+            "id": "minecraft:gold_ingot",
+            "Count": 11
+          }
+        ],
+        "DataVersion": 3465,
+        "foodLevel": 17,
+        "foodExhaustionLevel": 1.2000004,
+        "HurtTime": 0,
+        "SelectedItemSlot": 1,
+        "Inventory": [
+          {
+            "Slot": 0,
+            "id": "minecraft:diamond",
+            "Count": 3
+          },
+          {
+            "Slot": 1,
+            "id": "minecraft:dirt",
+            "Count": 1
+          },
+          {
+            "Slot": 103,
+            "id": "minecraft:iron_helmet",
+            "Count": 1,
+            "tag": {
+              "Damage": 2
+            }
+          }
+        ],
+        "foodTickTimer": 0
+      },
+      "jumpStat": 8,
+      "advancements": {
+        "minecraft:story/mine_stone": true,
+        "minecraft:story/upgrade_tools": false
+      },
+      "inventory": [
+        "0:3 diamond",
+        "1:1 dirt",
+        "39:1 iron_helmet"
+      ]
+    }
+  ],
+  "serverThread": "Server thread"
+}

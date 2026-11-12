@@ -14,6 +14,8 @@ shutil.copy2(root/'docs/CONTROLIFY.md', dist/'VERIFICATION-zh-CN.md')
 shutil.copy2(root/'THIRD-PARTY.md', dist/'THIRD-PARTY.md')
 benchmark = root/'docs'/('BENCHMARK-' + version.removesuffix('-alpha') + '.md')
 if benchmark.is_file(): shutil.copy2(benchmark, dist/'BENCHMARK-zh-CN.md')
+menu_guide = root/'docs/MENUS.md'
+if menu_guide.is_file(): shutil.copy2(menu_guide, dist/'MENUS-zh-CN.md')
 
 def digest(data): return hashlib.sha256(data).hexdigest()
 
