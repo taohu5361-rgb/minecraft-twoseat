@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Minecraft Java 单进程双人同屏联机模组：技术架构、需求、性能目标和 AI 开发交接稿">
+<title>Minecraft Java 单进程双人分屏模组 · 技术方案</title><style>
+:root{--bg:#f6f8fc;--paper:#fff;--ink:#142035;--muted:#59677d;--line:#e1e7f0;--accent:#167e81;--accent2:#3159ae;--tint:#edf8f8;--shadow:0 14px 48px rgba(26,42,71,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.78 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+a{color:#185eac;text-decoration:none}a:hover{text-decoration:underline}
+.layout{display:grid;grid-template-columns:255px minmax(0,920px);gap:38px;max-width:1258px;margin:0 auto;padding:36px 34px 80px}
+.sidebar{position:sticky;top:30px;align-self:start;max-height:calc(100vh - 50px);overflow:auto;padding:20px 14px 18px;border:1px solid var(--line);background:var(--paper);border-radius:16px;box-shadow:var(--shadow)}
+.brand{font-weight:800;font-size:13px;letter-spacing:1.9px;color:var(--accent);padding:4px 12px 14px}.sidebar small{display:block;font-size:11px;letter-spacing:1px;color:#94a0b2;font-weight:700;padding:6px 12px 8px}
+.sidebar a{display:block;border-radius:7px;padding:7px 11px;color:#506077;font-size:12px;line-height:1.35}.sidebar a:hover{background:var(--tint);color:var(--accent);text-decoration:none}
+.main{min-width:0}.hero{background:linear-gradient(125deg,#142e51 0%,#0f5961 92%);color:#fff;border-radius:22px;padding:38px 42px 36px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;right:-120px;top:-180px;width:390px;height:390px;border:1px solid #ffffff2b;border-radius:50%;box-shadow:0 0 0 52px #ffffff09,0 0 0 116px #ffffff09}
+.kicker{font-size:12px;letter-spacing:2.1px;color:#9de7db;font-weight:700}.hero h1{margin:15px 0 10px;font-size:34px;letter-spacing:-.7px;line-height:1.29;max-width:650px}.hero p{margin:0;color:#d9eaf2;font-size:15px}.tags{display:flex;flex-wrap:wrap;gap:8px;margin:23px 0 0}.tags span{border:1px solid #ffffff42;padding:3px 10px;border-radius:100px;font-size:11px;color:#e9f7f8}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 26px}.mini{background:var(--paper);padding:16px;border:1px solid var(--line);border-radius:12px}.mini b{display:block;color:#1b555e;font-size:19px;line-height:1.4}.mini span{font-size:12px;color:var(--muted)}
+.arch{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 20px 18px;margin:0 0 25px;box-shadow:var(--shadow)}.archlabel{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:1px;margin-bottom:14px}.archbox{background:#f2f7fb;border:1px solid #d8e5ef;text-align:center;padding:12px;border-radius:10px;color:#22425c;font-size:13px;font-weight:700}.archrow{display:grid;grid-template-columns:1fr 1fr;gap:11px}.archrow .archbox:first-child{background:#ecf8f2;border-color:#bce7cc}.archrow .archbox:last-child{background:#f4f0fb;border-color:#decdf3}.archarr{text-align:center;color:#8295ac;font-weight:700;padding:4px}.archhint{margin:12px 0 0;color:#78889c;font-size:12px;text-align:center}
+article{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:25px 38px 32px;box-shadow:var(--shadow);overflow-wrap:anywhere}article>h1:first-child{display:none}article>blockquote:first-of-type{border-left-color:var(--accent);background:var(--tint);margin-top:2px}
+article h2{font-size:21px;line-height:1.35;color:#193752;margin:35px 0 13px;padding-top:21px;border-top:1px solid var(--line);scroll-margin-top:26px}article h2:first-of-type{border-top:0;margin-top:0;padding-top:0}article h3{font-size:17px;color:#214c5c;margin:22px 0 10px}article p{margin:10px 0 14px}article ul,article ol{padding-left:22px;margin:8px 0 15px}article li{margin:6px 0;line-height:1.7}article strong{color:#203e58}article blockquote{margin:15px 0;border-left:4px solid #8eabbc;background:#f5f9fd;border-radius:0 8px 8px 0;padding:10px 18px;color:#4c6377}article blockquote p{margin:5px 0}article table{width:100%;border-collapse:collapse;table-layout:auto;margin:15px 0 22px;font-size:13px}article th{background:#edf4f9;color:#284b62;text-align:left;font-weight:700}article td,article th{padding:9px 11px;border:1px solid #dce5ed;vertical-align:top}article tr:nth-child(even) td{background:#fbfcfe}article code{font-family:ui-monospace,SFMono-Regular,Consolas,"Noto Sans Mono CJK SC",monospace;background:#f1f5fa;padding:1px 4px;border-radius:4px;font-size:12px}article pre{overflow-x:auto;background:#101f34;color:#e2edf4;border-radius:12px;padding:19px;font-size:12px;line-height:1.45;white-space:pre}article pre code{background:transparent;color:inherit;padding:0}article hr{border:0;border-top:1px solid var(--line);margin:28px 0}.foot{font-size:12px;color:#6f7d90;text-align:right;margin-top:22px}
+@media(max-width:980px){.layout{display:block;padding:15px}.sidebar{position:relative;max-height:none;margin-bottom:14px}.sidebar nav{display:grid;grid-template-columns:repeat(2,1fr)}.hero{padding:28px}.hero h1{font-size:26px}.summary{grid-template-columns:1fr 1fr}article{padding:18px 20px}}
+@media(max-width:540px){.summary{grid-template-columns:1fr}.sidebar nav{grid-template-columns:1fr 1fr}.layout{padding:8px}.hero h1{font-size:23px}article h2{font-size:18px}article table{display:block;overflow:auto;white-space:normal}article{padding:14px}.arch{padding:12px}}
+@media print{body{background:#fff;font-size:11pt}.layout{display:block;max-width:none;padding:0}.sidebar,.summary,.arch,.foot{display:none}.hero{background:#fff;color:#122942;box-shadow:none;padding:18px 0 20px;border-bottom:2px solid #167e81;border-radius:0}.hero h1{font-size:25pt;color:#122942}.hero p{color:#34495f}.hero .kicker{color:#167e81}.tags span{color:#31536d;border-color:#d7e2e8}article{box-shadow:none;border:0;padding:10px 0}article h2{break-after:avoid;page-break-after:avoid}article table{break-inside:auto}article tr{break-inside:avoid}article pre{white-space:pre-wrap;overflow-wrap:anywhere;color:#203e58;background:#eef3f7}article blockquote{break-inside:avoid}a{color:#204c80} @page{size:A4;margin:17mm}}
+</style></head><body>
+<div class="layout"><aside class="sidebar"><div class="brand">MINECRAFT / CO-OP</div><small>章节导航</small><nav><a href="#section-01">01｜项目一句话</a><a href="#section-02">02｜设备与已有实测</a><a href="#section-03">03｜必须实现的功能</a><a href="#section-04">04｜目标架构</a><a href="#section-05">05｜区块、模拟与 LOD 策略</a><a href="#section-06">06｜输入与分屏交互</a><a href="#section-07">07｜现有项目复用清单</a><a href="#section-08">08｜主要技术风险与应对</a><a href="#section-09">09｜最小开发路线（避免过度工程化）</a><a href="#section-10">10｜验收与性能评估</a><a href="#section-11">11｜待确认但不阻断方案讨论的事项</a><a href="#section-12">12｜交给下一个 AI 的任务说明</a></nav></aside>
+<div class="main"><header class="hero"><div class="kicker">TECHNICAL SPECIFICATION / AI HANDOFF</div><h1>Minecraft Java 单进程双人分屏模组</h1>
+<p>共享世界、资源与 LOD 的本地合作游玩方案</p><div class="tags"><span>V1.0</span><span>2026-11-12</span><span>单进程</span><span>本地双人</span><span>LOD 共享</span><span>优先复用开源项目</span></div></header>
+<div class="summary"><div class="mini"><b>1 个进程</b><span>一个 JVM / 一套整合包</span></div><div class="mini"><b>2 名玩家</b><span>真实角色 · 独立输入与镜头</span></div><div class="mini"><b>8 + 128</b><span>8 区块近景 + 至多 128 区块 LOD 目标</span></div></div>
+<div class="arch"><div class="archlabel">系统架构速览</div><div class="archbox">输入隔离与玩家身份管理</div><div class="archarr">↓</div><div class="archrow"><div class="archbox">玩家 A · 摄像机 A · 半屏 A</div><div class="archbox">玩家 B · 摄像机 B · 半屏 B</div></div><div class="archarr">↓</div><div class="archbox">共享纹理 / 模型 / 区块网格 / LOD 缓存</div><div class="archarr">↓</div><div class="archbox">唯一集成服务器 · 世界 Tick · 区块与存档</div><p class="archhint">每个视角分别执行可见性判断与渲染；复用资源，不重复运行完整客户端。</p></div>
+<article><h1>Minecraft Java 单进程双人分屏模组</h1>
+<blockquote>
+<p><strong>文档性质：</strong> 需求说明 + 技术架构草案 + 交给其他 AI 的开发交接稿。<br />
+<strong>版本：</strong> V1.0 ｜ <strong>整理日期：</strong> 2026-11-12 ｜ <strong>状态：</strong> 构想与可行性研究；尚未开发、未验证兼容性。<br />
+<strong>优先原则：</strong> 站在前人的肩膀上。优先使用现成开源模组及原版机制，最小修改，不重造轮子。</p>
+</blockquote>
+<h2 id="section-01">01｜项目一句话</h2>
+<p>在<strong>同一台 Windows 电脑、同一个 Minecraft Java 进程、同一份集成服务器世界</strong>中，支持两名真正独立的玩家；通过<strong>单屏左右分屏</strong>分别呈现两个摄像机，同时复用世界模拟、纹理、模型、区块网格和远景 LOD 缓存，尽量避免运行两套大型整合包客户端。</p>
+<p><strong>核心意图：</strong> 不是为了实现远程互联网联机，而是为了让本地两人合作游玩时，尽可能接近一次 Minecraft 游戏的资源开销。支持两人自由分开行动，不把副玩家限制为“自由摄像机”。</p>
+<h2 id="section-02">02｜设备与已有实测</h2>
+<table>
+<thead>
+<tr>
+  <th>条目</th>
+  <th>当前情况</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>CPU</td>
+  <td>AMD Ryzen 7 9700X，8 核 16 线程</td>
+</tr>
+<tr>
+  <td>显卡</td>
+  <td>NVIDIA RTX 5070，12 GB 显存</td>
+</tr>
+<tr>
+  <td>内存</td>
+  <td>32 GB DDR5-6000</td>
+</tr>
+<tr>
+  <td>平台</td>
+  <td>Windows；Minecraft Java 版</td>
+</tr>
+<tr>
+  <td>整合包规模</td>
+  <td>当前整合包超过 400 个模组，含多种性能优化模组</td>
+</tr>
+<tr>
+  <td>后期游戏表现</td>
+  <td>单人后期常低于 60 FPS</td>
+</tr>
+<tr>
+  <td>GPU 利用率</td>
+  <td>不稳定，曾观察到约 50%，也常有 80%～90% 以上</td>
+</tr>
+<tr>
+  <td>CPU 总占用</td>
+  <td>常低于 50%；未提供逐核心/逐线程帧时间数据</td>
+</tr>
+<tr>
+  <td>分辨率实验</td>
+  <td>升高或降低分辨率，帧率常变化不大</td>
+</tr>
+<tr>
+  <td>视距实验</td>
+  <td>完整视距调至 8 区块时，帧率有时几乎翻倍，但远景体验明显变差</td>
+</tr>
+</tbody>
+</table>
+<p><strong>目前的性能判断：</strong> 完整区块视距是重要负载来源；分辨率不敏感可能意味着区块几何、渲染提交、CPU 主线程或其他非像素开销占主导。不能仅凭 GPU/CPU 总利用率认定瓶颈；具体情况仍需实测帧时间。</p>
+<h2 id="section-03">03｜必须实现的功能</h2>
+<ol>
+<li><strong>真正双玩家：</strong> 两套独立玩家实体、坐标、生命值、背包、经验、交互、死亡及存档身份；彼此可以碰面、打怪、挖掘、建造。</li>
+<li><strong>单进程：</strong> 一个 JVM / Minecraft 客户端 + 一个集成服务器；避免把两个完整的 400 模组实例作为最终架构。</li>
+<li><strong>同屏双视角：</strong> 默认 1 块显示器、左右各半屏；两个摄像机独立转向与移动，各自有 HUD、物品栏和 GUI。</li>
+<li><strong>输入自由分配：</strong> 键鼠 + 手柄、双手柄、双键鼠均为目标组合；每个物理设备绑定到指定玩家，不串输入。</li>
+<li><strong>自由行动：</strong> 两人允许相距很远，各自加载近景；重叠区复用资源。不同维度是正式版目标，首轮单独验证。</li>
+<li><strong>远景不缩水：</strong> 每人近景完整渲染约 8 区块，远景由 Voxy 或同类 LOD 系统覆盖 64～128 区块（可配置）。</li>
+<li><strong>共享与稳定：</strong> 只模拟一份权威世界；共同区域不重复进行服务器模拟，存档可靠，优先兼容大型整合包。</li>
+</ol>
+<p><strong>暂不要求：</strong> 一开始就支持 3～4 人、开发新图形引擎、实现两套完整独立客户端、强制支持所有光影包，或承诺固定 FPS。</p>
+<h2 id="section-04">04｜目标架构</h2>
+<pre><code class="language-text">                 同一个 Minecraft Java 进程 / JVM
+ ┌─────────────────────────────────────────────────────┐
+ │                    输入设备分配层                   │
+ │      键鼠 A / 键鼠 B / 手柄 A / 手柄 B（按需）      │
+ ├──────────────────────┬──────────────────────────────┤
+ │  玩家 A：实体/状态  │  玩家 B：实体/状态            │
+ │  相机 A + HUD A     │  相机 B + HUD B               │
+ │  8 区块完整近景     │  8 区块完整近景               │
+ ├──────────────────────┴──────────────────────────────┤
+ │  共享资源：纹理 / 模型 / 区块网格 / LOD 缓存        │
+ │  对每个相机：分别做可见性判断和绘制                 │
+ ├─────────────────────────────────────────────────────┤
+ │      唯一集成服务器：区块 / 实体 / 红石 / Tick      │
+ │              世界存档与两名玩家身份                 │
+ └─────────────────────────────────────────────────────┘
+                     ↓ 两个画面区域
+          ┌────────────────┬────────────────┐
+          │  玩家 A 半屏   │  玩家 B 半屏   │
+          └────────────────┴────────────────┘
+</code></pre>
+<p><strong>实现边界：</strong> 两个半屏合起来与原屏幕具有相同的输出像素数，但两套摄像机仍分别进行视锥裁剪、可见性判断、几何处理和部分特效计算。共享的是资源与可共享的计算结果，不能理解为“两个视角只需一次绘制”。</p>
+<h2 id="section-05">05｜区块、模拟与 LOD 策略</h2>
+<table>
+<thead>
+<tr>
+  <th>参数</th>
+  <th>初始目标</th>
+  <th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>完整渲染视距</td>
+  <td>每人 8 区块</td>
+  <td>可调 6～12；以目前实测的 8 为起点</td>
+</tr>
+<tr>
+  <td>LOD 远景视距</td>
+  <td>每人 64～128 区块</td>
+  <td>优先 Voxy；按版本兼容性考虑 Distant Horizons</td>
+</tr>
+<tr>
+  <td>服务器模拟距离</td>
+  <td>每人约 5～8 区块</td>
+  <td>建议初测 6；以服务器真实支持和玩法效果为准</td>
+</tr>
+<tr>
+  <td>缓存</td>
+  <td>同进程共用 LOD 数据源</td>
+  <td>允许不同相机复用 CPU 内存与 GPU 缓存；按需加载和淘汰</td>
+</tr>
+<tr>
+  <td>区块重叠</td>
+  <td>去重加载与模拟</td>
+  <td>世界区块以位置/维度标识；使用范围并集而非为每名玩家复制一份</td>
+</tr>
+<tr>
+  <td>区块分离</td>
+  <td>分别提出加载需求</td>
+  <td>玩家距离很远时，每人维护自己的近景范围</td>
+</tr>
+</tbody>
+</table>
+<p><strong>服务器侧：</strong> 同一世界的重叠区块原本就由服务器统一模拟；两人分开后，要模拟的是两人所需模拟区域的并集。模拟距离与渲染距离是不同设置，怪物 AI、机器、红石和农场在模拟范围外可能暂停。</p>
+<p><strong>客户端侧：</strong> 同一个区块网格、纹理、模型和 LOD 数据可以被两个视角引用；但每个相机都要根据位置和朝向分别筛选可见对象并绘制。远景预生成/预加载可减少实时计算和卡顿，并不意味着远景渲染成本为零；未探索区域需要先有可用地形数据。</p>
+<p><strong>理论规模说明：</strong> 若用正方形近似计算半径 r 的区块占用，<code>(2r + 1)²</code>：8 区块约 289 个，两人完全不重叠最多约 578 个；32 区块约 4,225 个。它只比较区块范围，不能直接推算 FPS、网格复杂度或内存用量。</p>
+<h2 id="section-06">06｜输入与分屏交互</h2>
+<ul>
+<li>输入设备绑定逻辑独立于玩家与渲染：支持“键鼠 + 手柄 / 手柄 + 手柄 / 键鼠 + 键鼠”切换。</li>
+<li>双键鼠需要底层识别不同的物理鼠标/键盘，并解决窗口焦点、系统光标、快捷键以及 Raw Input 等平台问题；这是单独的兼容难点。</li>
+<li>每名玩家拥有自己的准星、HUD、物品栏、菜单焦点和操作权限。暂停游戏、聊天输入、打开设置、死亡画面等需要定义冲突处理。</li>
+<li>左右半屏可能影响横向视野、UI 排版及 FOV；应适配半屏宽高比，并允许 HUD 缩放。</li>
+<li>声音默认统一混音到电脑输出；若未来需要独立耳机输出，再作为后续功能。</li>
+</ul>
+<h2 id="section-07">07｜现有项目复用清单</h2>
+<table>
+<thead>
+<tr>
+  <th>候选项目</th>
+  <th>希望复用的内容</th>
+  <th>使用前必须核验</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><a href="https://www.curseforge.com/minecraft/mc-mods/local-multi-player">Local Multi Player</a></td>
+  <td>单进程多人、分屏、摄像机与玩家状态隔离</td>
+  <td>对应 Minecraft 版本、加载器、源码可得性、修改授权、跨维度及渲染兼容</td>
+</tr>
+<tr>
+  <td><a href="https://github.com/HaplessGnome/couch-coop">Couch Co-op</a></td>
+  <td>本地联机、设备输入、多窗口方案；作为退路和技术参考</td>
+  <td>当前代码、许可证、版本与控制器支持；其双实例路线不是最终目标</td>
+</tr>
+<tr>
+  <td><a href="https://modrinth.com/mod/voxy">Voxy</a></td>
+  <td>地形 LOD、远景数据库/缓存、远景渲染</td>
+  <td>Minecraft 版本、加载器、与双摄像机及整合包兼容性</td>
+</tr>
+<tr>
+  <td><a href="https://modrinth.com/mod/distanthorizons">Distant Horizons</a></td>
+  <td>LOD 备选方案</td>
+  <td>与目标版本及光影/分屏渲染的兼容性</td>
+</tr>
+<tr>
+  <td><a href="https://modrinth.com/mod/sodium">Sodium</a> 等现有优化模组</td>
+  <td>区块网格、渲染优化</td>
+  <td>不破坏现有整合包配置；可否复用单进程资源</td>
+</tr>
+<tr>
+  <td><a href="https://github.com/kafei520-CN/Mouse-mouse">Mouse-mouse</a> 等输入开源项目</td>
+  <td>双物理键鼠隔离的实现参考</td>
+  <td>Windows 实现、游戏版本、源码许可及适配成本</td>
+</tr>
+</tbody>
+</table>
+<p><strong>许可证原则：</strong> 优先选择明确允许修改/分发的项目。对限制性授权项目，先试用并研究公开接口；若需直接修改或发布衍生版本，必须取得相应许可。上述候选清单不是已经完成的兼容性或授权核验。</p>
+<h2 id="section-08">08｜主要技术风险与应对</h2>
+<table>
+<thead>
+<tr>
+  <th>风险</th>
+  <th>为什么重要</th>
+  <th>优先应对</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>单本地玩家假设</td>
+  <td>Minecraft 与第三方模组往往默认只有一个 <code>client.player</code>、一个当前世界/摄像机</td>
+  <td>从现成单进程分屏项目入手，先验证真实双玩家交互</td>
+</tr>
+<tr>
+  <td>400+ 模组兼容</td>
+  <td>UI、实体渲染、机器、粒子、地图、背包等可能依赖全局客户端状态</td>
+  <td>先用精简包验证，再测试代表性大型整合包场景</td>
+</tr>
+<tr>
+  <td>Voxy / Sodium / 光影</td>
+  <td>渲染管线与缓存可能只为单摄像机设计</td>
+  <td>先无光影跑通两视角，再接 LOD，最后选测光影</td>
+</tr>
+<tr>
+  <td>远距离及跨维度</td>
+  <td>客户端世界状态、区块缓存、纹理与渲染生命周期不同</td>
+  <td>远距离作为核心验收，跨维度单列验证阶段</td>
+</tr>
+<tr>
+  <td>双键鼠</td>
+  <td>Windows 普通输入接口倾向将多鼠标合并</td>
+  <td>原生 Raw Input 或复用现有输入隔离模组</td>
+</tr>
+<tr>
+  <td>CPU 空闲但 FPS 低</td>
+  <td>总占用无法说明渲染主线程/服务器线程是否饱和</td>
+  <td>用帧时间和线程分析定位，不盲目“把 CPU 分成两半”</td>
+</tr>
+<tr>
+  <td>内存与显存</td>
+  <td>LOD 64～128、两视角近景仍可能造成缓存压力</td>
+  <td>缓存去重 + LRU/预算管理 + 显存监测</td>
+</tr>
+<tr>
+  <td>多人身份与存档</td>
+  <td>本地两名玩家须有独立 ID、数据和可靠恢复</td>
+  <td>设计会话创建/退出/重新进入时的身份映射</td>
+</tr>
+</tbody>
+</table>
+<h2 id="section-09">09｜最小开发路线（避免过度工程化）</h2>
+<ol>
+<li><strong>P0：一次性确定基础条件。</strong> 确认 Minecraft 版本、Fabric/Forge/NeoForge、Java 版本、整合包模组列表以及候选底座的修改许可。只做阻断性检查。</li>
+<li><strong>P1：验证单进程双人最小闭环。</strong> 精简环境中，两人同屏、独立操作、独立物品栏、互相看见、正常挖方块和战斗；先不接入 LOD。</li>
+<li><strong>P2：接入设备隔离。</strong> 先实现最容易成功的键鼠 + 手柄；再验证双手柄；双键鼠作为独立输入适配任务。</li>
+<li><strong>P3：接入 8 区块近景 + LOD。</strong> 先单摄像机验证 Voxy/DH，再双摄像机验证缓存复用、远距离移动、切换/重建世界后的正确性。</li>
+<li><strong>P4：性能与共享优化。</strong> 在真实整合包场景测试重叠区块和远距离区块；对确实重复的缓存、网格构建和加载进行最小修改。</li>
+<li><strong>P5：大型整合包兼容与存档可靠性。</strong> 重点测试机器密集区、多人战斗、玩家死亡、传送、跨维度、退出再进入和长时间游戏。</li>
+</ol>
+<p><strong>执行纪律：</strong> 优先运行现成方案 → 发现可复现阻断问题 → 对必要位置打补丁 → 测试 → 交付。避免提前重构原版渲染引擎，也避免无休止的审计、预研和重复确认。</p>
+<h2 id="section-10">10｜验收与性能评估</h2>
+<p><strong>功能验收：</strong> 两个真实玩家可相遇与分开；各自独立控制、HUD、背包和进度；方块与实体交互一致；重叠区块世界状态正确；远距离移动不卡死；存档可恢复。跨维度属于目标能力，应在兼容测试中单独验收。</p>
+<p><strong>性能基线（三组相同地点和环境）：</strong></p>
+<ol>
+<li>单玩家：8 区块完整视距 + 64/128 区块 LOD。</li>
+<li>本方案：单进程两玩家、左右分屏、各自 8 区块 + LOD。</li>
+<li>对照组（如能启动）：两个 Minecraft 实例本地联机、相近画质与渲染距离。</li>
+</ol>
+<p><strong>采集指标：</strong> 平均 FPS、1% low FPS、帧时间、GPU/CPU 帧耗时、GPU 利用率、显存用量、Java 堆与进程内存、GC 停顿、服务器 MSPT/TPS、区块加载数量。分别在两人靠近、相隔很远、机器密集区及探索新区块时记录。</p>
+<p><strong>成功标准：</strong> 双人可正常游玩且稳定；最终单进程方案在代表性场景中，相较双实例具有可观察的性能或内存优势。<strong>不提前承诺“接近单人 FPS”或固定倍数提升。</strong></p>
+<h2 id="section-11">11｜待确认但不阻断方案讨论的事项</h2>
+<ul>
+<li>目标整合包的 <strong>Minecraft 版本、模组加载器和 Java 版本</strong>。</li>
+<li>是否保留当前 400+ 模组整合包，还是换包；当前具体使用的优化模组与渲染链。</li>
+<li>屏幕分辨率、刷新率、是否需要光影；目标 FPS（如稳定 60）。</li>
+<li>实际输入设备型号，以及双键鼠是否为首版刚需。</li>
+<li>单进程分屏底座的源码、许可证与稳定性；现有 LOD 与双摄像机的兼容情况。</li>
+<li>两名玩家身份建立方法；本地会话是否允许额外朋友远程加入（当前不作为首版需求）。</li>
+</ul>
+<h2 id="section-12">12｜交给下一个 AI 的任务说明</h2>
+<blockquote>
+<p>请将此文档视为<strong>需求与技术方案草案</strong>，不要假定所有技术细节已经验证。优先帮助实现可运行原型，而不是重新从零开发 Minecraft 多人系统。</p>
+<p><strong>请按以下顺序输出：</strong> ① 检查最合适、源码许可允许修改的单进程分屏项目；② 找出其与目标 Minecraft 版本、加载器、Voxy/DH、Sodium 的真实兼容边界；③ 给出最小补丁清单，明确哪些可直接复用，哪些必须改；④ 先实现最小双人同屏样例，再逐步接 LOD 与输入隔离；⑤ 用 FPS/帧时间/内存/服务器 MSPT 测量改善。</p>
+<p><strong>约束：</strong> 优先复用现成轮子；保留两位玩家真实独立身份；远距离能自由探索；尽量保持兼容大型整合包；避免无依据的性能保证和不必要的框架重写。</p>
+</blockquote>
+<hr />
+<p><strong>版本备注：</strong> 本文档依据当前需求讨论整理。涉及第三方模组的支持范围、许可证和可修改性，均须以实际选定版本和最新项目资料为准。项目尚处于设计阶段。</p>
+</article><div class="foot">为 AI 协作与技术评审准备 · 2026-11-12 · V1.0 · 技术方案 / AI 交接稿</div></div></div></body></html>

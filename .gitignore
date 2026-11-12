@@ -1,0 +1,9 @@
+tools/
+references/
+dist/
+mod/.gradle/
+mod/build/
+mod/run/
+mod/run-data/
+mod/src/generated/
+*.log
